@@ -1,0 +1,69 @@
+#Artistes{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+        .ArtistProfil{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 50px;
+            justify-content: center;
+
+            .ArtistPhot{
+
+                img{    
+                    height: 200px;
+                    width: 200px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .ArtistName{
+                span{
+                    color: #D3573C;
+                    font-size: 36px;
+                    line-height: 47px;
+                }
+            }
+            .ArtistCity{
+                span{
+                    font-size: 13px;
+                    line-height: 17px;
+                    color: #901C1C;
+                }
+            }
+            .ArtistDescription{
+                span{
+                    font-size: 10px;
+                }
+            }
+            .ArtistPrix{
+                span{
+                    font-size: 9px;
+                    color: #757575;
+                    line-height: 12px;
+                }
+            }
+            .ArtistHashtags{
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                .Hashtag{
+                    border: 0.5px solid #C4C4C4;
+                    box-sizing: border-box;
+                    border-radius: 11px;
+                    width: auto;
+                    padding: 2px 5px;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 16px;
+                    text-align: center;
+                    color: #901C1C;
+                    margin-right: 5px;
+                    min-width: 10px;
+                }
+            }
+        }
+    }

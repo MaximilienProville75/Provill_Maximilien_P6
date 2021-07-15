@@ -1,0 +1,100 @@
+header{
+    #BannerPhoto{
+        font-size: 20px;
+        letter-spacing: 3px;
+        color: #901C1C;
+        margin-left: 30px;
+    }
+}
+
+#ProfilGallery{
+    margin-bottom: 60px;
+
+    #PhotographProfil{
+        display: flex;
+        flex-direction: row-reverse;
+        margin: auto;
+        justify-content: space-evenly;
+
+        .ArtistPhot{
+            img{
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+            }
+        }
+        #PhotoDescription{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .ArtistName{
+                font-size: 36px;
+                line-height: 47px;
+                color: #D3573C;
+
+            }
+            .ArtistCity{
+                font-size: 13px;
+                line-height: 17px;
+                color: #901C1C;
+            }
+            .ArtistDescription{
+                font-size: 13px;
+                line-height: 17px;
+                color: #757575;
+            }
+            .ArtistHashtags{
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                .Hashtag{
+                    border: 0.5px solid #C4C4C4;
+                    box-sizing: border-box;
+                    border-radius: 11px;
+                    width: auto;
+                    padding: 2px 5px;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 16px;
+                    text-align: center;
+                    color: #901C1C;
+                    margin-right: 5px;
+                    min-width: 10px;
+                }
+            }
+        }
+    }
+
+    #PhotographGallery{
+        margin-top: 40px;
+
+        #Photo{
+            margin: auto;
+            width: 90%;
+
+            img{
+                width: 100%;
+                height: 190px;
+                object-fit: cover;
+                margin-bottom: 10px;
+                border-radius: 5px;
+            }
+
+            .PhotoName{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-top: -4px;
+                margin-bottom: 10px;
+                color: #901C1C;
+
+                span{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}

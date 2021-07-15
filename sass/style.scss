@@ -1,0 +1,26 @@
+@import "./_Banner";
+@import "./_AristProfil";
+@import "./_IndexTitlePage";
+@import "./_PhotographProf";
+@import "./_ContactMeBtn";
+@import "./_ContactForm";
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+body{
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+
+
+/*@media screen and (min-width: 450px){
+    header{
+        #Banner{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}*/
