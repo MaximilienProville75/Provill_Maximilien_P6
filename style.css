@@ -293,7 +293,7 @@ header #BannerPhoto {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  background-color: #DB8876;
 }
 
 .content {
@@ -302,12 +302,14 @@ header #BannerPhoto {
   max-width: 500px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
-  background: #232323;
+  background: #DB8876;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  color: #fff;
+  color: black;
   padding-top: 10px;
+  font-size: 24px;
+  line-height: 31px;
 }
 
 .modal-body {
@@ -320,7 +322,9 @@ label {
   font-size: 14px;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+  margin-top: 11px;
+  font-size: 24px;
+  line-height: 31px;
 }
 
 input {
@@ -340,6 +344,10 @@ input {
   border-radius: 8px;
   font-size: 20px;
   height: 48px;
+}
+
+#birthdate {
+  height: 185px;
 }
 
 .formData[data-error]::after {
@@ -470,7 +478,7 @@ input {
 .btn-close {
   background: #fe142f;
   display: block;
-  margin: 0 auto;
+  margin-top: 15px;
   border-radius: 7px;
   font-size: 1rem;
   padding: 10px;
@@ -479,6 +487,12 @@ input {
   border: 0;
   background: #911C1C;
   border-radius: 5px;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
 }
 
 #confirmation {
@@ -563,6 +577,13 @@ input {
 .select-items div:hover,
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+#FormMessage {
+  margin-top: -66px;
+  margin-bottom: 20px;
+  font-size: 36px;
+  line-height: 47px;
 }
 
 .text-label {
@@ -659,13 +680,46 @@ body {
   margin: auto;
 }
 
-/*@media screen and (min-width: 450px){
-    header{
-        #Banner{
-            display: flex;
-            flex-direction: column;
-        }
-    }
-}*/
+@media screen and (min-width: 669px) {
+  .bground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 800px;
+    width: 669px;
+    overflow: auto;
+    background-color: #DB8876;
+    margin: auto;
+    right: 0;
+    bottom: 0;
+  }
+
+  .modal-body {
+    padding: 10px 8%;
+    margin: 53px auto 0px auto;
+  }
+
+  .btn-submit, .btn-signup, .btn-close {
+    background: #fe142f;
+    display: block;
+    margin-top: 15px;
+    border-radius: 7px;
+    font-size: 1rem;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    background: #911C1C;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */

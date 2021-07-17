@@ -56,7 +56,7 @@
     font-size: 16px;
   }
   
-  .bground {
+.bground {
     display: none;
     position: fixed;
     z-index: 1;
@@ -65,7 +65,7 @@
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(26, 39, 156, 0.4);
+    background-color: #DB8876;
   }
   
   .content {
@@ -74,12 +74,14 @@
     max-width: 500px;
     animation-name: modalopen;
     animation-duration: var(--modal-duration);
-    background: #232323;
+    background: #DB8876;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    color: #fff;
+    color: black;
     padding-top: 10px;
+    font-size: 24px;
+    line-height: 31px;
   }
   
   .modal-body {
@@ -92,7 +94,9 @@
     font-size: 14px;
     font-weight: normal;
     display: inline-block;
-    margin-bottom: 11px;
+    margin-top: 11px;
+    font-size: 24px;
+    line-height: 31px;
   }
   input {
     padding: 8px;
@@ -110,6 +114,10 @@
     font-size: 20px;
     height: 48px;
   }
+  #birthdate{
+    height: 185px;
+  }
+
   .formData[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
@@ -224,7 +232,7 @@
   .btn-close {
     background: #fe142f;
     display: block;
-    margin: 0 auto;
+    margin-top: 15px;
     border-radius: 7px;
     font-size: 1rem;
     padding: 10px;
@@ -232,7 +240,13 @@
     cursor: pointer;
     border: 0;
     background: #911C1C;
-      border-radius: 5px;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
   }
   
   #confirmation {
@@ -319,7 +333,12 @@
   .same-as-selected {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  
+  #FormMessage{
+    margin-top: -66px;
+    margin-bottom: 20px;
+    font-size: 36px;
+    line-height: 47px;
+  }
   .text-label {
     font-weight: normal;
     font-size: 14px;
