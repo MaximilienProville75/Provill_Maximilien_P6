@@ -3,7 +3,7 @@ header {
 }
 header #Banner {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 header #Banner #Logo {
   font-size: 20px;
@@ -17,7 +17,6 @@ header #Banner #NavBar {
   margin-top: 65px;
   margin-left: 100px;
   height: 30px;
-  width: 288px;
   margin: auto;
   margin-bottom: auto;
   flex-wrap: wrap;
@@ -43,10 +42,18 @@ header #Banner #NavBar .navItems {
   margin-bottom: 5px;
 }
 
+@media screen and (max-width: 600px) {
+  #Navbar {
+    width: 288px;
+  }
+}
 #Artistes {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 850px;
 }
 #Artistes .ArtistProfil {
   display: flex;
@@ -54,6 +61,7 @@ header #Banner #NavBar .navItems {
   text-align: center;
   margin-bottom: 50px;
   justify-content: center;
+  width: 250px;
 }
 #Artistes .ArtistProfil .ArtistPhot img {
   height: 200px;
@@ -176,10 +184,14 @@ header #BannerPhoto {
 }
 #ProfilGallery #PhotographGallery {
   margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
 }
 #ProfilGallery #PhotographGallery #Photo {
   margin: auto;
-  width: 90%;
+  max-width: 350px;
+  min-width: 300px;
+  max-height: 300px;
 }
 #ProfilGallery #PhotographGallery #Photo img {
   width: 100%;

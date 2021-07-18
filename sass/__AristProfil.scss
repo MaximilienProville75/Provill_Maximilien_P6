@@ -1,7 +1,10 @@
 #Artistes{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 850px;
 
         .ArtistProfil{
             display: flex;
@@ -9,6 +12,7 @@
             text-align: center;
             margin-bottom: 50px;
             justify-content: center;
+            width: 250px;
 
             .ArtistPhot{
 

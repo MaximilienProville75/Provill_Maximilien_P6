@@ -68,10 +68,15 @@ header{
 
     #PhotographGallery{
         margin-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+
 
         #Photo{
             margin: auto;
-            width: 90%;
+            max-width: 350px;
+            min-width: 300px;
+            max-height: 300px;
 
             img{
                 width: 100%;
