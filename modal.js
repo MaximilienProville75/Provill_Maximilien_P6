@@ -1,114 +1,67 @@
-function editNav() {
-    var x = document.getElementById("myTopnav");
-    const icon = document.getElementsByClassName("icon");
-  
-    if (x.className === "topnav") {
-      x.className += " responsive";
-      icon[0].style.color = "white";
-    } else {
-      x.className = "topnav";
-      icon[0].style.color = "#ff0000";
-    }
-  
-  }
-  // DOM Elements
-  const modalbg = document.querySelector(".bground");
-  const modalBtn = document.querySelectorAll(".modal-btn");
-  const formData = document.querySelectorAll(".formData");
-  const modalCross = document.getElementsByClassName(".close");
-  
-  // launch modal event
-  modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-  
-  // launch modal form
-  function launchModal() {
-    modalbg.style.display = "block";
-  }
-  function closeModal() {
-    modalbg.style.display = "none";
-  };
-  
-  
-  
-  const form = document.getElementById ('form');
-  const firstName = document.getElementById ('first');
-  const lastName = document.getElementById ('last');
-  const eMail = document.getElementById ('email');
-  const birthDate = document.getElementById ('birthdate');
-  
-  const numbers = /^[0-9]+$/;
+var photograph = function(profilPhoto, name, city, description, price, hashtags,) {
+  this.profilPhoto = profilPhoto;
+  this.name = name;
+  this.city = city;
+  this.description = description;
+  this.price = price;
+  this.hashtags = hashtags;
+}
 
-  const errorFirst = document.getElementById ('error-first');
-  const errorLast = document.getElementById ('error-last');
-  const errorMail = document.getElementById ('error-mail');
-  const errorBirth = document.getElementById ('error-birth');
-  const errorQuantity = document.getElementById ('error-quantity');
-  const errorCity = document.getElementById ('error-city');
-  const errorValidation = document.getElementById ('error-validation');
+var mimiKeel = new photograph('Sample Photos/Photographers ID Photos/MimiKeel.jpg', 'Mimi Keel', 'London, UK', 'Voir le beau dans le quotidien', 400, ['portrait', 'events', 'travel', 'animals']);
+var elliRoseWilkens = new photograph('Sample Photos/Photographers ID Photos/EllieRoseWilkens.jpg', 'Elie-Rose Wilkens', 'Paris, France', 'Travaille sur des compositions complexes', 250, ['sports', 'architecture']);
+var tracyGalindo = new photograph('Sample Photos/Photographers ID Photos/TracyGalindo.jpg', 'Tracy Galindo', 'Montreal, Canada', 'Photograph Freelance', 500, ['art', 'fashion', 'events']);
+var nabeelBradford = new photograph('Sample Photos/Photographers ID Photos/NabeelBradford.jpg', 'Nabeel Bradford', 'Mexico City, Mexico', 'Je vais toujours de l\'avant', 350, ['travel', 'portraits']);
+var rhodeDubois = new photograph('Sample Photos/Photographers ID Photos/RhodeDubois.jpg', 'Rhode Dubois', 'Barcelona, Spain', 'Créatrice de souvenirs', 375, ['sport', 'fashion', 'events', 'animals']);
+var marcelNikolic = new photograph('Sample Photos/Photographers ID Photos/MarcelNikolic.jpg', 'Marcel Nikolic', 'Berlin, Germany', 'Toujours à la recherche de LA photo', 300, ['travel', 'architecture']); 
+
+var photographs = [mimiKeel, elliRoseWilkens, tracyGalindo, nabeelBradford, rhodeDubois, marcelNikolic];
+
+let photographList = document.createElement('div');
+    photographList.classList.add("Artistes")
   
-  const confirmation = document.getElementById ('confirmation');
-  const confirmationCloseBtn = document.getElementsByClassName('btn-close');
-  
-  const FormData = document.getElementsByClassName('formData');
-  
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-  })
-  
-  function validate () {
-    let firstChecked = false;
-    let lastChecked = false;
-    let mailChecked = false;
-    let birthChecked = false;
-  
-    const parentFirstName = firstName.parentNode;
-    if (!firstName.value.match(/(.*[a-z]){2}/i) || firstName.value === ' ' || firstName.value === null || firstName.value.length < 2) {
-      parentFirstName.setAttribute("data-error", 'Please fill in your First Name');
-      parentFirstName.setAttribute("data-error-visible", "true");
-      } else {
-      parentFirstName.setAttribute("data-error-visible", "false");
-      firstChecked = true;
-    };
-  
-    const parentLastName = lastName.parentNode;
-    if (!lastName.value.match(/(.*[a-z]){2}/i) || lastName.value === ' ' || lastName.value === null || lastName.value.length < 2) { 
-      parentLastName.setAttribute("data-error", 'Please fill in your Last Name');
-      parentLastName.setAttribute("data-error-visible", "true");
-      } else {
-      parentLastName.setAttribute("data-error-visible", "false");
-      lastChecked = true;
-    };
-  
-    const parentEmail = eMail.parentNode;
-      if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/ .test(eMail.value)) { 
-        parentEmail.setAttribute("data-error", 'Please fill in your eMail');
-        parentEmail.setAttribute("data-error-visible", "true");
-        } else {
-        parentEmail.setAttribute("data-error-visible", "false");
-      mailChecked = true;
-    };
-  
-    const parent = birthDate.parentNode;
-    if (!lastName.value.match(/(.*[a-z]){2}/i) || lastName.value === ' ' || lastName.value === null || lastName.value.length < 40){
-      parent.setAttribute("data-error", 'Please fill in your date of birth');
-      parent.setAttribute("data-error-visible", "true");
-      } else {
-      parent.setAttribute("data-error-visible", "false");
-      birthChecked = true;      
-      }  
-  
-    if (firstChecked && lastChecked && mailChecked && birthChecked) {
-      form.style.display = "none";
-      confirmation.style.display = "flex";
-      form.reset()
-    }
-  
-  
-  }
-  
-  
-  confirmationCloseBtn[0].addEventListener("click", () => {
-    closeModal();
-    form.style.display = "block";
-    confirmation.style.display = "none";
-  });
+
+for (var i = 0; i < photographs.length; i++) {  
+    let photographProfil = document.createElement('div');
+    photographProfil.classList.add("ArtistProfil");
+
+    let profilPhotos = document.createElement('img');
+    profilPhotos.src = photographs[i].profilPhoto;
+    let src = profilPhotos.src;
+    profilPhotos.classList.add("Artistes","ArtistProfil", "ArtistPhot");
+    
+    let artistName = document.createElement('div');
+    artistName.innerHTML = photographs[i].name;
+    artistName.classList.add("ArtistName");
+    
+    let artistCity = document.createElement('div');
+    artistCity.innerHTML = photographs[i].city;
+    artistCity.classList.add("ArtistCity");
+
+    let artistDescription = document.createElement('div');
+    artistDescription.innerHTML = photographs[i].description;
+    artistDescription.classList.add("ArtistDescription");
+
+    let artistPrice = document.createElement('div');
+    artistPrice.innerHTML = photographs[i].price + "e/jour";
+    artistPrice.classList.add("ArtistPrix");
+
+    let artistHashtags = document.createElement('div');
+    artistHashtags.classList.add("ArtistHashtags");
+
+      photographs[i].hashtags.forEach(item => {let hash = document.createElement('div');
+      hash.innerHTML = "#" + item;
+      hash.classList.add("Hashtag"); 
+      artistHashtags.appendChild(hash);})
+
+    photographProfil.appendChild(profilPhotos);
+    photographProfil.appendChild(artistName);
+    photographProfil.appendChild(artistCity);
+    photographProfil.appendChild(artistDescription);
+    photographProfil.appendChild(artistPrice);
+    photographProfil.appendChild(artistHashtags);
+    photographList.appendChild(photographProfil);
+    document.body.appendChild(photographList);
+
+    photographProfil.onclick =  window.open('photograph_page.html', '_blank');
+}
+

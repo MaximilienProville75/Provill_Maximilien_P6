@@ -25,87 +25,13 @@
         
         
 
-        <div class="bground">
-            <div class="content">
-              <span class="close"></span>
-              <div class="modal-body">
-                <div id="confirmation">
-                  <h1> Thank you for 
-                    submitting your 
-                    registration details</h1>
-                  <button class="btn-close">Close</button>
-                </div>
-                <form
-                  id="form"
-                  name="reserve"
-                  action="index.html"
-                  method="get"
-                  onsubmit="return validate();"
-                >
-                <label id="FormMessage">Contactez-moi <br> Mimi Keel <br></label>
-                  <div
-                    class="formData" data-error="Veuillez entrer 2 caractères ou plus pour le champ du nom">
-                    <label for="first" >First Name</label><br>
-                    <input
-                      class="text-control"
-                      type="text"
-                      id="first"
-                      name="first"
-                      minlength="2"
-                    /><br>
-                  </div>
-                  <div id="error-first"></div>
-                  <div
-                    class="formData">
-                    <label for="last" >Last Name</label><br>
-                    <input
-                      class="text-control"
-                      type="text"
-                      id="last"
-                      name="last"
-                      minlength="2"
-                    /><br>
-                  </div>
-                  <div id="error-last"></div>
-                  <div
-                    class="formData">
-                    <label for="email" >Email</label><br>
-                    <input
-                      class="text-control"
-                      type="email"
-                      id="email"
-                      name="email"
-                    /><br>
-                  </div>
-                  <div id="error-mail"></div>
-                  <div
-                    class="formData">
-                    <label for="birthdate" >Votre Message</label><br>
-                    <input
-                      class="text-control"
-                      type="text"
-                      id="birthdate"
-                      name="birthdate"
-                    /><br>
-                  </div>
-                  <div id="error-birth"></div>
-                  <input
-                    class="btn-submit"
-                    type="submit"
-                    class="button"
-                    value="Envoyer"
-                  />
-                </form>
-              </div>
-            </div>
-        </div>
+        
 
 
         <div id="ProfilGallery">
-            <button class="btn-signup modal-btn">
-                Contactez-Moi
-              </button>
+            
             <div id="PhotographProfil">
+                <script src="modal.js"></script>
                 <div id="PhotoProfil">
                     <div class="ArtistPhot">
                         <img src="Sample Photos/Photographers ID Photos/MimiKeel.jpg" alt="Photo Mimi">
@@ -209,6 +135,6 @@
          
     </main>
 
-    <script src="modal.js"></script>
+    
 </body>
 </html>
