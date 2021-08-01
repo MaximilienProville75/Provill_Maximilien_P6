@@ -24,10 +24,15 @@ for (var i = 0; i < photographs.length; i++) {
     let photographProfil = document.createElement('div');
     photographProfil.classList.add("ArtistProfil");
 
+    let onclickPhotographProfil = document.createElement('a');
+    onclickPhotographProfil.setAttribute("href", "photograph_page.html");
+    onclickPhotographProfil.appendChild(photographProfil);
+
+
     let profilPhotos = document.createElement('img');
     profilPhotos.src = photographs[i].profilPhoto;
     let src = profilPhotos.src;
-    profilPhotos.classList.add("Artistes","ArtistProfil", "ArtistPhot");
+    profilPhotos.classList.add("Artistes", "ArtistPhot");
     
     let artistName = document.createElement('div');
     artistName.innerHTML = photographs[i].name;
@@ -52,16 +57,15 @@ for (var i = 0; i < photographs.length; i++) {
       hash.innerHTML = "#" + item;
       hash.classList.add("Hashtag"); 
       artistHashtags.appendChild(hash);})
-
+      
     photographProfil.appendChild(profilPhotos);
     photographProfil.appendChild(artistName);
     photographProfil.appendChild(artistCity);
     photographProfil.appendChild(artistDescription);
     photographProfil.appendChild(artistPrice);
     photographProfil.appendChild(artistHashtags);
-    photographList.appendChild(photographProfil);
+    onclickPhotographProfil.appendChild(photographProfil);
+    photographList.appendChild(onclickPhotographProfil);
     document.body.appendChild(photographList);
-
-    photographProfil.onclick =  window.open('photograph_page.html', '_blank');
 }
 

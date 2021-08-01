@@ -22,6 +22,7 @@ header #Banner #NavBar {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 25px;
+  margin-top: 50px;
 }
 header #Banner #NavBar .navItems {
   border: 0.5px solid #C4C4C4;
@@ -41,11 +42,16 @@ header #Banner #NavBar .navItems {
   letter-spacing: 1px;
   margin-bottom: 5px;
 }
+#Logo img{
+  height: 30px;
+  margin-top: 38px;
+}
 
 @media screen and (max-width: 600px) {
   #Navbar {
     width: 288px;
-  }
+  
+}
 }
 .Artistes {
   display: flex;
@@ -53,15 +59,22 @@ header #Banner #NavBar .navItems {
   margin: auto;
   flex-wrap: wrap;
   justify-content: space-around;
-  max-width: 850px;
+  max-width: 1000px;
 }
 .ArtistProfil {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-bottom: 50px;
+  margin:10px 10px 50px 10px;
   justify-content: center;
   width: 250px;
+  padding: 10px;
+}
+.ArtistProfil:hover{
+  border: 3px solid #D3573C;
+  border-radius: 15%;
+  box-shadow: 0px 4px 9px 2px;
+
 }
 .Artistes .ArtistProfil .ArtistPhot{
   height: 200px;
@@ -256,3 +269,6 @@ body {
   margin: auto;
 }
 
+a {
+  text-decoration: none;
+}
