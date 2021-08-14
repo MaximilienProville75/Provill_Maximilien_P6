@@ -143,21 +143,21 @@ header #BannerPhoto {
   margin-left: 30px;
 }
 
-#ProfilGallery {
+.ProfilGallery {
   margin-bottom: 60px;
 }
-#ProfilGallery #PhotographProfil {
+.ProfilGallery .PhotographProfil {
   display: flex;
   flex-direction: row-reverse;
   margin: auto;
   justify-content: space-evenly;
 }
-#ProfilGallery #PhotographProfil .ArtistPhot img {
+.ProfilGallery .PhotographProfil .ArtistPhot img {
   border-radius: 50%;
   height: 100px;
   width: 100px;
 }
-#ProfilGallery #PhotographProfil #PhotoDescription {
+.ProfilGallery .PhotographProfil .PhotoDescription {
   display: flex;
   flex-direction: column;
   justify-content: center;
