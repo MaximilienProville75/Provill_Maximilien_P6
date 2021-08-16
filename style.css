@@ -177,12 +177,12 @@ header #BannerPhoto {
   line-height: 17px;
   color: #757575;
 }
-#ProfilGallery #PhotographProfil #PhotoDescription .ArtistHashtags {
+.ProfilGallery .PhotographProfil .PhotoDescription .ArtistHashtags {
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
-#ProfilGallery #PhotographProfil #PhotoDescription .ArtistHashtags .Hashtag {
+.ProfilGallery .PhotographProfil .PhotoDescription .ArtistHashtags .Hashtag {
   border: 0.5px solid #C4C4C4;
   box-sizing: border-box;
   border-radius: 11px;
@@ -197,12 +197,12 @@ header #BannerPhoto {
   margin-right: 5px;
   min-width: 10px;
 }
-#ProfilGallery #PhotographGallery {
+.ProfilGallery .PhotographGallery {
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
 }
-#ProfilGallery #PhotographGallery #Photo {
+.ProfilGallery .PhotographGallery .Photo {
   margin: auto;
   max-width: 350px;
   min-width: 300px;
