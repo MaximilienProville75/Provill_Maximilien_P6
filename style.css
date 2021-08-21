@@ -88,7 +88,7 @@ ul {
   margin: auto;
   flex-wrap: wrap;
   justify-content: space-around;
-  max-width: 1000px;
+  max-width: 900px;
 }
 .hidden{
   display: none;

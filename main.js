@@ -313,7 +313,6 @@ function fetchData(url) {
       return response;
     });
 }
-
 fetchData("FishEyeData.json");
 
 // 3. ITERATE AND ADD EVENT LISTENER
