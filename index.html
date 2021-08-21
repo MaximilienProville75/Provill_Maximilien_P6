@@ -1,60 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <script src="https://kit.fontawesome.com/a8f258b41c.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/a8f258b41c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="style.css" />
     <title>FishEye - Photography</title>
-</head>
-<body> 
+  </head>
+  <body>
     <header>
-        <div id="Banner">
-            <div id="Logo">
-                <a href="index.html">
-                <img src="logo.svg" alt="">
-                </a>
-            </div>
-            <div id="NavBar">
-                <div class='navItems'>
-                    #Portrait
-                </div>
-                <div class='navItems'>
-                    #Art
-                </div>
-                <div class='navItems'>
-                    #Fashion
-                </div>
-                <div class='navItems'>
-                    #Architecture
-                </div>
-                <div class='navItems'>
-                    #Travel
-                </div>
-                <div class='navItems'>
-                    #Sport
-                </div>
-                <div class='navItems'>
-                    #Animals
-                </div>
-                <div class='navItems'>
-                    #Events
-                </div>
-            </div>
+      <div class="Banner">
+        <div id="Logo">
+          <a href="index.html">
+            <img src="logo.svg" alt="" />
+          </a>
         </div>
+      </div>
+      <nav class="BannerNav">
+        <ul class="hashTagsList"></ul>
+      </nav>
     </header>
     <main>
-        <div id="NosPhotographes">
-            <a href="photograph_page.html">
-            <div id="Title">
-                <h2>Nos Photographes</h2>
-            </div>
-            <script type="module"  src="modal.js" ></script>
-            </a>
-        </div>
+      <div id="NosPhotographes">
+        <a href="photograph_page.html">
+          <div id="Title">
+            <h2>Nos Photographes</h2>
+          </div>
+          <div id="PhotographerList"></div>
+          <script type="module" src="main.js"></script>
+        </a>
+      </div>
     </main>
-</body>
+  </body>
 </html>

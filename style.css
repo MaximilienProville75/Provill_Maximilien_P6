@@ -1,47 +1,76 @@
 header {
   margin-bottom: 30px;
 }
-header #Banner {
+ul {
+  list-style: none;
+}
+
+
+.hashTagsList {
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tag {
+  margin: 0 3px;
+  padding: 4px 7px;
+  font-size: .75rem;
+  font-weight: 500;
+  color: #901c1c;
+  cursor: pointer;
+  border: 1px solid #c4c4c4;
+  border-radius: 15px;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+.BannerNav {
+  margin: 15px 0;
+  line-height: 30px;
+}
+
+.tag:hover,
+.tag:focus,
+.active-tag {
+  color: #fff;
+  background-color: #901c1c;
+  border: 1px solid transparent;
+}
+
+.tag:hover a,
+.tag:focus a,
+.active-tag a {
+  color: #fff;
+}
+
+ .Banner {
   display: flex;
   flex-wrap: wrap;
 }
-header #Banner #Logo {
+ .Banner #Logo {
   font-size: 20px;
   letter-spacing: 3px;
   color: #901C1C;
   margin-left: 10px;
 }
-header #Banner #NavBar {
+#PhotographerList {
+  margin: 0 auto;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  margin-top: 65px;
-  margin-left: 100px;
-  height: 30px;
-  margin: auto;
-  margin-bottom: auto;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 25px;
-  margin-top: 50px;
+          flex-direction: row;
+      justify-content: space-around;
+          align-items: center;
+
+      flex-wrap: wrap;
+
+      column-gap: 25px;
+      row-gap: 20px;
+  max-width: 1200px;
 }
-header #Banner #NavBar .navItems {
-  border: 0.5px solid #C4C4C4;
-  box-sizing: border-box;
-  border-radius: 11px;
-  height: 25px;
-  width: auto;
-  padding: 2px 5px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-  color: #901C1C;
-  margin-right: 5px;
-  min-width: 10px;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-}
+
+
 #Logo img{
   height: 30px;
   margin-top: 38px;
@@ -61,6 +90,10 @@ header #Banner #NavBar .navItems {
   justify-content: space-around;
   max-width: 1000px;
 }
+.hidden{
+  display: none;
+}
+
 .ArtistProfil {
   display: flex;
   flex-direction: column;
@@ -71,9 +104,8 @@ header #Banner #NavBar .navItems {
   padding: 10px;
 }
 .ArtistProfil:hover{
-  border: 3px solid #D3573C;
-  border-radius: 15%;
-  box-shadow: 0px 4px 9px 2px;
+    -webkit-transform: scale(1.03);
+          transform: scale(1.05);
 
 }
 .Artistes .ArtistProfil .ArtistPhot{
@@ -83,6 +115,7 @@ header #Banner #NavBar .navItems {
   object-fit: cover;
   justify-content: center;
   margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
 }
 .Artistes .ArtistProfil .ArtistName span {
   color: #D3573C;
@@ -103,6 +136,7 @@ header #Banner #NavBar .navItems {
   line-height: 12px;
 }
 .ArtistHashtags {
+  padding: 0;
   display: flex;
   justify-content: center;
   flex-direction: row;

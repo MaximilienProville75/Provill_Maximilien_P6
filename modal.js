@@ -1,251 +1,235 @@
-import {
-  handlePhotographerClick,
-  compareIds,
-  displayMedias,
-} from "./function.js";
+const nameSearch = new URL(window.location).searchParams;
+const getName = nameSearch.get("name");
 
-class Photograph {
-  constructor(name, id, city, country, tags, tagline, price, portrait) {
-    this.name = name;
-    this.id = id;
-    this.city = city;
-    this.country = country;
-    this.tags = tags;
-    this.tagline = tagline;
-    this.price = price;
-    this.portrait = `/Sample_Photos/Portraits/${portrait}`;
+// Modal selectors
+const pageWrapper = document.getElementById("page-wrapper");
+const contactModal = document.getElementById("contact-modal");
+const modalName = document.getElementById("modal__name");
+const modalBackground = document.getElementById("modal-background");
+const modalInputs = document.querySelectorAll("form > input");
+const contactButton = document.querySelector(".contact-button");
+const closeButton = document.getElementById("close-modal");
+const submitButton = document.getElementById("submit-button");
+const closeValidationMsg = document.getElementById("validation__close");
+const confirmButton = document.getElementById("validation__confirm-button");
+const modalPadding = document.getElementById("modal-padding");
+
+// Specific inputs selectors
+// Adding specific invalid messages to be shown when relevant
+const firstName = document.getElementById("first-name");
+const firstNameInvalid = document.getElementById("first-name-invalid_message");
+const lastName = document.getElementById("last-name");
+const lastNameInvalid = document.getElementById("last-name-invalid_message");
+const email = document.getElementById("email");
+const emailInvalid = document.getElementById("email-invalid_message");
+const userMessage = document.getElementById("user-msg");
+
+// Validation message selectors
+const validationModal = document.getElementById("validation__dialog");
+const validationMessage = document.getElementById("validation__message");
+
+/* -- Contact modal -- */
+
+// Adding photographer name dynamically
+modalName.innerText = getName;
+contactModal.setAttribute("aria-label", `Contact me ${getName}`);
+
+// Trapping focus inside the modal for accessibility
+const modalFocusableElements = "form > input, button, textarea";
+const firstFocusableElement = contactModal.querySelectorAll(
+  modalFocusableElements
+)[0];
+const focusableContent = contactModal.querySelectorAll(modalFocusableElements);
+const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+document.addEventListener("keydown", (event) => {
+  const tabIsNotPressed = null;
+  const tabIsPressed = event.key === "Tab" || event.key === 9;
+  if (!tabIsPressed) {
+    return false;
   }
-
-  printPhotographer() {
-    console.log(`Photographer name ${this.portrait}`);
+  // In case of Shift, if the active element is the first, loop back and vice-versa
+  if (event.shiftKey) {
+    if (document.activeElement === firstFocusableElement) {
+      lastFocusableElement.focus();
+      event.preventDefault();
+    }
+    // If pressed key is Tab
+  } else if (document.activeElement === lastFocusableElement) {
+    firstFocusableElement.focus();
+    event.preventDefault();
   }
+  return tabIsNotPressed;
+});
 
-  computePhotographerVariables() {
-    return {
-      name: this.name,
-      id: this.id,
-      city: this.city,
-      country: this.country,
-      tags: this.tags,
-      tagline: this.tagline,
-      price: this.price,
-      portrait: this.portrait,
-    };
-  }
+// Opening the modal
+contactButton.addEventListener("click", () => {
+  contactModal.classList.remove("hidden");
+  contactModal.classList.add("opened__contact-modal");
+  modalBackground.classList.remove("hidden");
+  pageWrapper.setAttribute("aria-disabled", "true");
+  firstFocusableElement.focus();
 
-  renderHomepage() {
-    const photographer = this.computePhotographerVariables();
-    const { name, id, city, country, tags, tagline, price, portrait } =
-      photographer;
+  // 'Required' has to be added dynamically to prevent errors when required inputs are hidden
+  modalInputs.forEach((input) => {
+    input.toggleAttribute("required");
+  });
+});
 
-    const photographList = document.createElement("div");
-    photographList.classList.add("Artistes");
+/* -- INPUTS REGEX VALIDATION -- */
 
-    const photographProfil = document.createElement("div");
-    photographProfil.classList.add("ArtistProfil");
-
-    const onclickPhotographProfil = document.createElement("a");
-    onclickPhotographProfil.setAttribute(
-      "href",
-      `photograph_page.html?id=${id}`
-    );
-    onclickPhotographProfil.appendChild(photographProfil);
-
-    const profilePhotos = document.createElement("img");
-    profilePhotos.setAttribute("src", portrait);
-    profilePhotos.setAttribute("alt", `Portrait de ${name}`);
-    profilePhotos.classList.add("Artistes", "ArtistPhot");
-
-    const artistName = document.createElement("div");
-    artistName.innerHTML = name;
-    artistName.classList.add("ArtistName");
-
-    const artistCity = document.createElement("div");
-    artistCity.innerHTML = city + " " + country;
-    artistCity.classList.add("ArtistCity");
-
-    const artistDescription = document.createElement("div");
-    artistDescription.innerHTML = tagline;
-    artistDescription.classList.add("ArtistDescription");
-
-    const artistPrice = document.createElement("div");
-    artistPrice.innerHTML = price + "€/jour";
-    artistPrice.classList.add("ArtistPrix");
-
-    const artistHashtags = document.createElement("div");
-    artistHashtags.classList.add("ArtistHashtags");
-
-    tags.forEach((item) => {
-      let hash = document.createElement("div");
-      hash.innerHTML = "#" + item;
-      hash.classList.add("Hashtag");
-      artistHashtags.appendChild(hash);
-    });
-
-    photographProfil.appendChild(profilePhotos);
-    photographProfil.appendChild(artistName);
-    photographProfil.appendChild(artistCity);
-    photographProfil.appendChild(artistDescription);
-    photographProfil.appendChild(artistPrice);
-    photographProfil.appendChild(artistHashtags);
-    onclickPhotographProfil.appendChild(photographProfil);
-    photographList.appendChild(onclickPhotographProfil);
-    document.body.appendChild(photographList);
-  }
-}
-
-class Photos {
-  constructor(id, photographerId, title, image, tags, likes, date, price) {
-    this.id = id;
-    this.photographerId = photographerId;
-    this.title = title;
-    this.image = `/Sample_Photos/${Photograph}/${image}`;
-    this.tags = tags;
-    this.likes = likes;
-    this.date = date;
-    this.price = price;
-    this.photographer = new Photograph();
-  }
-
-  computerPhotosVariables() {
-    return {
-      id: this.id,
-      photographerId: this.photographerId,
-      title: this.title,
-      image: this.image,
-      tags: this.tags,
-      likes: this.likes,
-      date: this.date,
-      price: this.price,
-    };
-  }
-
-  renderPhotographGalleryProfil() {
-    //Photograph Profil Top part
-    const photoraphersProfil = document.createElement("div");
-    photoraphersProfil.classList.add("PhotographProfil");
-
-    const photograhersProfilePhoto = document.createElement("img");
-    photograhersProfilePhoto.setAttribute("src", photographer.portrait);
-    photograhersProfilePhoto.classList.add("PhotographProfil", "ArtistPhot");
-
-    const photographersName = document.createElement("div");
-    photographersName.innerHTML = photographer.name;
-    photographersName.classList.add("ArtistName");
-
-    const photographersCity = document.createElement("div");
-    photographersCity.innerHTML =
-      photographer.city + " " + photographer.country;
-    photographersCity.classList.add("ArtistCity");
-
-    const photographersDescription = document.createElement("div");
-    photographersDescription.innerHTML = photographer.tagline;
-    photographersDescription.classList.add("ArtistDescription");
-
-    const photographerTags = document.createElement("div");
-    photographersTags.classList.add("ArtistHashtags");
-
-    photographer.tags.forEach((item) => {
-      let hash = document.createElement("div");
-      hash.innerHTML = "#" + item;
-      hash.classList.add("Hashtag");
-      photographerTags.appendChild(hash);
-    });
-
-    photoraphersProfil.appendChild(photograhersProfilePhoto);
-    photoraphersProfil.appendChild(photographersName);
-    photoraphersProfil.appendChild(photographersCity);
-    photoraphersProfil.appendChild(photographersDescription);
-    photoraphersProfil.appendChild(photographerTags);
-    // onclickPhotographProfil.appendChild(photographProfil);
-    // photographList.appendChild(onclickPhotographProfil);
-    document.ProfilGallery.appendChild(photoraphersProfil);
-  }
-
-  renderPhotographerGallery() {
-    const photoGallery = this.computerPhotosVariables();
-    const { id, photographerId, title, image, tags, likes, date, price } =
-      photoGallery;
-    //Gallery
-    const photographerGallery = document.createElement("div");
-    photographerGallery.classList.add("PhotographGallery");
-
-    photos;
-  }
-}
-// 1. FETCH DATA
-
-function fetchData(url) {
-  return fetch(url)
-    .then((res) => res.json())
-    .then(function (response) {
-      const { photographers } = response;
-      let newPhotographers = [];
-
-      photographers.forEach((photographer) => {
-        const { name, id, city, country, tags, tagline, price, portrait } =
-          photographer;
-        const newPhotographer = new Photograph(
-          name,
-          id,
-          city,
-          country,
-          tags,
-          tagline,
-          price,
-          portrait
-        );
-        newPhotographers.push(newPhotographer);
-        newPhotographer.printPhotographer();
-      });
-
-      newPhotographers.forEach((photographer) => {
-        photographer.renderHomepage();
-      });
-
-      newPhotographers.forEach((photographer) => {
-        photographer.renderPhotographGalleryProfil();
-      });
-
-      return response;
-    });
-}
-
-let data = fetchData("FishEyeData.json");
-
-// 3. ITERATE AND ADD EVENT LISTENER
-photographers.forEach(({ name, id }) => {
-  const elementText = document.createElement("p");
-  elementText.innerHTML = `This is ${name}`;
-  elementText.classList.add("blue-text");
-  elementText.setAttribute("id", `${id}`);
-  elementText.addEventListener("click", (event) =>
-    handlePhotographerClick(event, id)
+// First Name
+firstName.addEventListener("input", () => {
+  // Both first and last name have similar requirements
+  const regexFirstName = new RegExp(
+    /^[a-zA-Z\-àâçéèêëîïôûùüÿñæœ']{2,}$/,
+    "g" // Test all occurences
   );
-  document.getElementById("photographers").appendChild(elementText);
+  const testFirstName = regexFirstName.test(firstName.value);
+
+  if (testFirstName) {
+    firstNameInvalid.classList.add("hidden");
+  } else {
+    firstNameInvalid.classList.remove("hidden");
+  }
 });
 
-medias.forEach((media) => {
-  //destructure what you need
-  const { title, id, image } = media;
-  //   // element creation
-  const elementText = document.createElement("p");
-  const elementImage = document.createElement("img");
-  //   // add inner content to elements
-  elementText.innerHTML = `This is ${title}`;
-  //   // add attributes (class and id)
-  elementText.classList.add("blue-text");
-  elementText.setAttribute("id", `${id}`);
+// Last Name
+lastName.addEventListener("input", () => {
+  const regexLastName = new RegExp(/^[a-zA-Z\-àâçéèêëîïôûùüÿñæœ']{2,}$/, "g");
+  const testLastName = regexLastName.test(lastName.value);
 
-  elementImage.setAttribute("src", `${image}`);
-  elementImage.setAttribute("alt", `${title}`);
-  //   // append to body
-  document.body.appendChild(elementText);
+  if (testLastName) {
+    lastNameInvalid.classList.add("hidden");
+  } else {
+    lastNameInvalid.classList.remove("hidden");
+  }
 });
 
-// on one page, load data given a photographerId
-// photographer onClick
-// redirect to correct ID
+// Email
+email.addEventListener("input", () => {
+  const regexEmail = new RegExp(
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+    "g"
+  );
+  const testEmail = regexEmail.test(email.value);
 
-// 2. DESTRUCTURE DATA FROM JSON
-const { media: medias, photographers } = data;
+  if (testEmail) {
+    emailInvalid.classList.add("hidden");
+  } else {
+    emailInvalid.classList.remove("hidden");
+  }
+});
+
+// Submission attempt while invalid inputs
+function invalidAnimation(element) {
+  element.animate(
+    [
+      {
+        opacity: "1",
+        transform: "translateX(0)",
+      },
+      {
+        opacity: ".5",
+        transform: "translateX(-10px)",
+      },
+      {
+        opacity: "1",
+        transform: "translateX(15px)",
+      },
+    ],
+    150
+  );
+}
+
+// Checking all inputs at once (for submit button)
+function checkAllInputs() {
+  if (!firstName.checkValidity()) {
+    firstNameInvalid.classList.remove("hidden");
+    invalidAnimation(firstNameInvalid);
+  } else {
+    firstNameInvalid.classList.add("hidden");
+  }
+  if (!lastName.checkValidity()) {
+    lastNameInvalid.classList.remove("hidden");
+    invalidAnimation(lastNameInvalid);
+  } else {
+    lastNameInvalid.classList.add("hidden");
+  }
+  if (!email.checkValidity()) {
+    emailInvalid.classList.remove("hidden");
+    invalidAnimation(emailInvalid);
+  } else {
+    emailInvalid.classList.add("hidden");
+  }
+}
+
+// Removing 'required' attribute to avoid errors and closing the modal
+function closeAndSubmit() {
+  modalInputs.forEach((input) => {
+    input.toggleAttribute("required");
+  });
+  contactModal.classList.add("hidden");
+  contactModal.classList.remove("opened__contact-modal");
+}
+
+// Displaying validation message
+function validationEvent() {
+  // Centering the message
+  modalPadding.style.height = "100%";
+  validationMessage.innerText = `Merci d'avoir pris contact avec ${getName}`;
+  validationModal.classList.remove("hidden");
+  validationModal.animate(
+    [{ opacity: "0", transform: "translateY(-999px)" }, { opacity: "1" }],
+    1000
+  );
+}
+
+// Both 'dialog' and 'form' close buttons behave identically
+closeButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  modalInputs.forEach((input) => {
+    input.toggleAttribute("required");
+  });
+  contactModal.classList.remove("opened__contact-modal");
+  contactModal.classList.add("hidden");
+  modalBackground.classList.add("hidden");
+  pageWrapper.removeAttribute("aria-disabled", "true");
+});
+
+[closeValidationMsg, confirmButton].forEach((button) => {
+  button.addEventListener("click", () => {
+    modalPadding.style.height = "auto";
+    validationModal.classList.add("hidden");
+    modalBackground.classList.add("hidden");
+    pageWrapper.removeAttribute("aria-disabled", "true");
+  });
+});
+
+// Submitting event
+// If the form is valid, submit it, else, highlight invalid inputs
+submitButton.addEventListener("click", (e) => {
+  // If form is valid, log user input
+  e.preventDefault();
+  if (contactModal.checkValidity()) {
+    console.log(
+      `Prénom: ${firstName.value}\nNom: ${lastName.value}\nEmail: ${email.value}\nMessage: ${userMessage.value}`
+    );
+    // Submission animation
+    contactModal.animate(
+      [{ opacity: "1" }, { opacity: ".2", transform: "translateY(-999px)" }],
+      1000
+    );
+    // Clearing the modal after submission
+    contactModal.reset();
+    // Returning to top of modal
+    setTimeout(closeButton.focus(), 1000);
+    // Removing form from view
+    setTimeout(closeAndSubmit, 1000);
+    // Validation message
+    setTimeout(validationEvent, 1000);
+  } else {
+    // Checking every input at once
+    checkAllInputs();
+  }
+});
