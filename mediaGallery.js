@@ -1,7 +1,7 @@
-import Image from "./Image.js";
+import Image from "./Photo.js";
 import Video from "./Video.js";
 
-export default class MediaFactory {
+export default class MediaGallery {
   static createMedia(media) {
     let objectMedia = null;
     if (media.image) {
