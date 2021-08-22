@@ -1,5 +1,3 @@
-import { handlePhotographerClick, compareIds } from "./function.js";
-
 const pageURL = new URL(window.location).href;
 const params = new URL(window.location).searchParams;
 
@@ -170,109 +168,6 @@ function filterPhotographers(element) {
     });
   });
 }
-// renderHeader() {
-//   const photographer = this.computePhotographerVariables();
-//   const { tags } = photographer;
-
-//   const headerTags = [];
-//   tags.forEach((item) => {
-//     if (!(item in headerTags)) {
-//       headerTags.push(item);
-//     } else {
-//       headerTags.remove(item);
-//     }
-//   });
-
-//   const headerBanner = document.createElement("div");
-//   headerBanner.classList.add("Banner");
-
-//   headerTags.forEach((item) => {
-//     const hTags = document.createElement("div");
-//     hTags.innerHTML = "# " + item;
-//     hTags.classList.add("Hashtag");
-//     headerBanner.appendChild(hTags);
-//     document.body.appendChild(headerBanner);
-//   });
-// }
-
-// renderPhotographGalleryProfil() {
-//   //Photograph Profil Top part
-//   const photoraphersProfil = document.createElement("div");
-//   photoraphersProfil.classList.add("PhotographProfil");
-
-//   const photograhersProfilePhoto = document.createElement("img");
-//   photograhersProfilePhoto.setAttribute("src", portrait);
-//   photograhersProfilePhoto.classList.add("PhotographProfil", "ArtistPhot");
-
-//   const photographersName = document.createElement("div");
-//   photographersName.innerHTML = photographer.name;
-//   photographersName.classList.add("ArtistName");
-
-//   const photographersCity = document.createElement("div");
-//   photographersCity.innerHTML = photographer.city + " " + country;
-//   photographersCity.classList.add("ArtistCity");
-
-//   const photographersDescription = document.createElement("div");
-//   photographersDescription.innerHTML = tagline;
-//   photographersDescription.classList.add("ArtistDescription");
-
-//   const photographerTags = document.createElement("div");
-//   photographersTags.classList.add("ArtistHashtags");
-
-//   photographer.tags.forEach((item) => {
-//     let hash = document.createElement("div");
-//     hash.innerHTML = "#" + item;
-//     hash.classList.add("Hashtag");
-//     photographerTags.appendChild(hash);
-//   });
-
-//   photoraphersProfil.appendChild(photograhersProfilePhoto);
-//   photoraphersProfil.appendChild(photographersName);
-//   photoraphersProfil.appendChild(photographersCity);
-//   photoraphersProfil.appendChild(photographersDescription);
-//   photoraphersProfil.appendChild(photographerTags);
-//   // onclickPhotographProfil.appendChild(photographProfil);
-//   // photographList.appendChild(onclickPhotographProfil);
-//   document.ProfilGallery.appendChild(photoraphersProfil);
-
-class Photos {
-  constructor(id, photographerId, title, image, tags, likes, date, price) {
-    this.id = id;
-    this.photographerId = photographerId;
-    this.title = title;
-    this.image = `/Sample_Photos/${Photograph}/${image}`;
-    this.tags = tags;
-    this.likes = likes;
-    this.date = date;
-    this.price = price;
-    this.photographer = new Photograph();
-  }
-
-  computerPhotosVariables() {
-    return {
-      id: this.id,
-      photographerId: this.photographerId,
-      title: this.title,
-      image: this.image,
-      tags: this.tags,
-      likes: this.likes,
-      date: this.date,
-      price: this.price,
-    };
-  }
-
-  // renderPhotographerGallery() {
-  //   const photoGallery = this.computerPhotosVariables();
-  //   const { id, photographerId, title, image, tags, likes, date, price } =
-  //     photoGallery;
-  //   //Gallery
-  //   const photographerGallery = document.createElement("div");
-  //   photographerGallery.classList.add("PhotographGallery");
-
-  //   photos;
-  // }
-}
-// 1. FETCH DATA
 
 function fetchData(url) {
   return fetch(url)
@@ -305,10 +200,6 @@ function fetchData(url) {
       tags.forEach((tag) => {
         filterPhotographers(tag);
       });
-      // const tags = document.querySelectorAll(".tag");
-      // tags.forEach((tag) => {
-      //   filterPhotographers(tag);
-      // });
 
       return response;
     });

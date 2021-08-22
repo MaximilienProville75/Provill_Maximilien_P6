@@ -1,8 +1,13 @@
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
-const mediaGallery = document.getElementById("media-gallery");
 
 const artistBannerId = document.getElementById("photographBanner");
+
+let activeTagsArray = [];
+let nbOfLikes = 0;
+let totalLikes = 0;
+let chosenOption = [];
+localStorage.setItem("pageId", pageId);
 
 class Photograph {
   constructor(name, id, city, country, tags, tagline, price, portrait) {
@@ -31,20 +36,26 @@ class Photograph {
 
   renderArtistBanner() {
     const photographer = this.computePhotographerVariables();
-    const { name, id, city, country, tags, tagline, price, portrait } =
-      photographer;
+    const { name, id, city, country, tags, tagline, portrait } = photographer;
 
     const artistBanner = document.createElement("section");
-    artistBanner.classList.add("PhotographProfil");
+    artistBanner.classList.add("artistBanner");
+
+    const artistBannerDescription = document.createElement("div");
+    artistBannerDescription.classList.add("artistBannerDescription");
 
     const artistPhot = document.createElement("img");
     artistPhot.setAttribute("src", portrait);
     artistPhot.setAttribute("alt", `Portrait de ${name}`);
-    artistPhot.classList.add("PhotographProfil", "ArtistPhot");
+    artistPhot.classList.add("artistBannerPortrait");
 
     const artistName = document.createElement("div");
     artistName.innerHTML = name;
     artistName.classList.add("ArtistName");
+
+    const artistCityCountry = document.createElement("div");
+    artistCityCountry.innerHTML = city + ", " + country;
+    artistCityCountry.classList.add("ArtistCity");
 
     const artistDescription = document.createElement("div");
     artistDescription.innerHTML = tagline;
@@ -53,12 +64,31 @@ class Photograph {
     const photographerTagList = artistBanner.appendChild(
       document.createElement("ul")
     );
-    photographerTagList.classList.add("ArtistHashtags");
+    photographerTagList.classList.add("artistBannerHashtags");
+    artistBanner.dataset.tags = tags.join(",");
+    tags.forEach((tag) => {
+      const photographerTag = photographerTagList.appendChild(
+        document.createElement("li")
+      );
+      const photographerSRtag = photographerTag.appendChild(
+        document.createElement("span")
+      );
+      photographerSRtag.classList.add("screen-reader-only");
+      const photographerTagLink = photographerTag.appendChild(
+        document.createElement("a")
+      );
+      photographerTagLink.dataset.tagName = tag;
+      photographerTagLink.classList.add("tag");
+      photographerTagLink.setAttribute("href", "#");
+      photographerTagLink.innerText = `#${tag}`;
+    });
 
     artistBanner.appendChild(artistPhot);
-    artistBanner.appendChild(artistName);
-    artistBanner.appendChild(artistDescription);
-    artistBanner.appendChild(photographerTagList);
+    artistBannerDescription.appendChild(artistName);
+    artistBannerDescription.appendChild(artistDescription);
+    artistBannerDescription.appendChild(artistCityCountry);
+    artistBannerDescription.appendChild(photographerTagList);
+    artistBanner.appendChild(artistBannerDescription);
     artistBannerId.appendChild(artistBanner);
   }
 }
@@ -90,10 +120,6 @@ function fetchData(url) {
         photographer.renderArtistBanner();
       });
 
-      const tags = document.querySelectorAll(".tag");
-      tags.forEach((tag) => {
-        filterPhotographers(tag);
-      });
       // const tags = document.querySelectorAll(".tag");
       // tags.forEach((tag) => {
       //   filterPhotographers(tag);
