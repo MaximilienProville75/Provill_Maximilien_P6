@@ -45,17 +45,21 @@ class Photograph {
     const photographProfil = document.createElement("div");
     photographProfil.classList.add("ArtistProfil");
 
-    const onclickPhotographProfil = photographList.appendChild(
-      document.createElement("a")
-    );
+    // const onclickPhotographProfil = photographList.appendChild(
+    //   document.createElement("a")
+    // );
+
+    const onclickPhotographProfil = document.createElement("a");
+    photographList.append(onclickPhotographProfil);
+    console.log(onclickPhotographProfil);
     onclickPhotographProfil.classList.add("photographer__link-container");
     onclickPhotographProfil.setAttribute(
       "href",
-      `page-photographe.html?id=${id}&name=${name}`
+      `page-photographe.html?id=${id}`
     );
     onclickPhotographProfil.setAttribute("id", `${id}`);
     onclickPhotographProfil.setAttribute("aria-label", `${name}`);
-    onclickPhotographProfil.appendChild(photographProfil);
+    onclickPhotographProfil.append(photographProfil);
 
     const profilePhotos = document.createElement("img");
     profilePhotos.setAttribute("src", portrait);
@@ -87,10 +91,9 @@ class Photograph {
       document.createElement("ul")
     );
     photographerTagList.classList.add("ArtistHashtags");
-    // photographProfil.appendChild(artistHashtags);
+
     onclickPhotographProfil.appendChild(photographProfil);
     photographList.appendChild(onclickPhotographProfil);
-    photographList.appendChild(photographProfil);
     PhotographerList.appendChild(photographList);
 
     photographList.dataset.tags = tags.join(",");
@@ -168,7 +171,6 @@ function filterPhotographers(element) {
     });
   });
 }
-
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())

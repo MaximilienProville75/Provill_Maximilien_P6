@@ -181,15 +181,22 @@ header #BannerPhoto {
   margin-left: 30px;
 }
 
+.PhotographerPageLogo{
+  height: 30px;
+  margin-top: 38px;
+  padding-left: 15px;
+}
+
 .ProfilGallery {
   margin-bottom: 60px;
 }
 .artistBanner {
+  margin: auto;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   max-width: 750px;
-  margin: 20px;
+  padding: 15px;
 }
 
 .artistBannerHashtags{
@@ -278,6 +285,96 @@ header #BannerPhoto {
   flex-direction: row;
   justify-content: space-between;
 }
+/* Order Filter */
+#filterOrderBy {
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 5rem;
+}
+
+#filterContent {
+  display: inline-block;
+  position: absolute;
+  border: none;
+  border-radius: 5px;
+  min-width: 165px;
+  padding: 10px;
+  background-color: #901c1c;
+}
+
+#filterContent a, #filterContent #orderSelected {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+#filterTitle {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #181818;
+}
+
+#orderByClick{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+#orderSelected {
+  padding: .2rem 0;
+}
+
+#orderImg {
+  margin-left: .7rem;
+}
+
+.orderOptions {
+  display: none;
+}
+
+.orderOptions .option {
+  width: 100%;
+  padding-top: .9rem;
+  margin-top: .9rem;
+  border-top: 1px solid #fff;
+}
+
+.open {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  animation: slide-down .4s ease-in-out forwards;
+}
+
+@-webkit-keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contact Me Button */
 
 #ContactMeButton {
   position: fixed;

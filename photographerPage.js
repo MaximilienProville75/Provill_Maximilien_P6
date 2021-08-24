@@ -1,13 +1,15 @@
+import MediaGallery from "./mediaGallery.js";
+
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
 
 const artistBannerId = document.getElementById("photographBanner");
+const mediaGallery = document.getElementById("mediaGallery");
 
 let activeTagsArray = [];
 let nbOfLikes = 0;
 let totalLikes = 0;
 let chosenOption = [];
-localStorage.setItem("pageId", pageId);
 
 class Photograph {
   constructor(name, id, city, country, tags, tagline, price, portrait) {
@@ -93,6 +95,86 @@ class Photograph {
   }
 }
 
+const filterOrderBy = document.getElementById("filterOrderBy");
+const orderByClick = document.getElementById("orderByClick");
+const orderOptions = document.querySelector(".orderOptions");
+const filterContent = document.getElementById("filterContent");
+const orderbotArrow = document.getElementById("orderbotArrow");
+const orderSelected = document.getElementById("orderSelected");
+const filterOptions = document.querySelectorAll(".option");
+
+// * -- 'ORDER-BY' -- */
+// Options closing animation
+function openAndCloseDropdown() {
+  // Opening dropdown
+  if (!orderOptions.classList.contains("open")) {
+    orderOptions.classList.toggle("open");
+    orderByClick.setAttribute("aria-expanded", "true");
+    // Arrow animation
+    orderbotArrow.animate([{ transform: "rotate(180deg)" }], {
+      duration: 300,
+      fill: "forwards",
+    });
+  } else {
+    // Closing dropdown
+    orderbotArrow.animate([{ transform: "rotate(0deg)" }], {
+      duration: 300,
+      fill: "forwards",
+    });
+
+    const close = function close() {
+      orderOptions.classList.toggle("open");
+      orderByClick.setAttribute("aria-expanded", "false");
+    };
+    orderOptions.animate(
+      [{ opacity: "0", transform: "translateY(-25px)" }],
+      360,
+      "ease-in-out"
+    );
+    setTimeout(close, 300);
+  }
+}
+
+// Dropdown click event
+orderByClick.addEventListener("click", (e) => {
+  e.preventDefault();
+  openAndCloseDropdown();
+});
+
+// Closing dropdown if click occurs anywhere else on page
+window.addEventListener("click", (e) => {
+  if (
+    orderOptions.classList.contains("open") &&
+    !filterContent.contains(e.target)
+  ) {
+    openAndCloseDropdown();
+  }
+});
+
+// Showing selected option in dropdown
+filterOptions.forEach((option) => {
+  if (option.getAttribute("aria-selected") === "true") {
+    orderSelected.innerText = option.innerText;
+    option.classList.add("hidden");
+  }
+
+  option.addEventListener("click", (e) => {
+    e.preventDefault();
+    const filterLastSelected = document.querySelector(
+      ".order-by__options > .hidden"
+    );
+
+    // Unselect last selected element
+    filterLastSelected.setAttribute("aria-selected", "false");
+    filterLastSelected.classList.remove("hidden");
+
+    // Clicked element becomes new slected element
+    option.classList.add("hidden");
+    option.setAttribute("aria-selected", "true");
+    orderSelected.innerText = option.innerText;
+  });
+});
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -103,27 +185,21 @@ function fetchData(url) {
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
           photographer;
-        const newPhotographer = new Photograph(
-          name,
-          id,
-          city,
-          country,
-          tags,
-          tagline,
-          price,
-          portrait
-        );
-        newPhotographers.push(newPhotographer);
-      });
 
-      newPhotographers.forEach((photographer) => {
-        photographer.renderArtistBanner();
+        if (pageId === id) {
+          const newPhotographer = new Photograph(
+            name,
+            id,
+            city,
+            country,
+            tags,
+            tagline,
+            price,
+            portrait
+          );
+          newPhotographer.renderArtistBanner();
+        }
       });
-
-      // const tags = document.querySelectorAll(".tag");
-      // tags.forEach((tag) => {
-      //   filterPhotographers(tag);
-      // });
 
       return response;
     });

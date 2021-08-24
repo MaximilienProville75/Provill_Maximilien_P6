@@ -21,12 +21,59 @@
     <header class="header">
       <div id="Logo">
         <a href="index.html">
-          <img src="svgRepo/logo.svg" alt="" />
+          <img src="svgRepo/logo.svg" alt="" class="PhotographerPageLogo" />
         </a>
       </div>
     </header>
     <main>
       <div id="photographBanner"></div>
+      <section id="filterOrderBy">
+        <h2 id="filterTitle">Trier par</h2>
+        <div id="filterContent">
+          <a
+            href="#"
+            id="orderByClick"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Order by"
+            aria-controls="orderOptions"
+            aria-labelledby="order-by__title"
+          >
+            <span id="orderSelected"></span>
+            <div id="orderImg">
+              <img src="svgRepo/botArrow.svg" alt="" id="orderbotArrow" />
+            </div>
+          </a>
+          <div class="orderOptions" role="listbox">
+            <a
+              href="#"
+              class="option"
+              data-value="popularite"
+              aria-selected="true"
+              role="option"
+              >Popularité</a
+            >
+            <a
+              href="#"
+              class="option"
+              data-value="date"
+              aria-selected="false"
+              role="option"
+              >Date</a
+            >
+            <a
+              href="#"
+              class="option"
+              data-value="titre"
+              aria-selected="false"
+              role="option"
+              >Titre</a
+            >
+          </div>
+        </div>
+      </section>
+
       <div id="mediaGallery"></div>
       <div id="modalForm"></div>
       <div id="lightBox"></div>
