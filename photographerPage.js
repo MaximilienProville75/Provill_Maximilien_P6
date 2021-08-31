@@ -261,6 +261,37 @@ class Image {
   }
 }
 
+const photographerTotalLikes = document.getElementById("totalLikes");
+const photographerPrice = document.getElementById("price");
+
+function totalLikesAndPrice(element) {
+  photographerPrice.innerText = `${element.price} € / jour`;
+  photographerTotalLikes.innerHTML = `${totalLikes} <i class="fas fa-heart"></i>`;
+}
+
+function animateAndIncrementLikes() {
+  const heartIcons = document.querySelectorAll(".heart");
+  heartIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      icon.firstElementChild.classList.toggle("empty");
+      icon.firstElementChild.classList.toggle("full");
+
+      // If the heart is activated, increment likes and total likes, else, decrement
+      const likes = icon.previousElementSibling;
+      nbOfLikes = parseInt(icon.previousElementSibling.innerText, 10);
+      nbOfLikes = icon.firstElementChild.classList.contains("full")
+        ? (nbOfLikes += 1)
+        : (nbOfLikes -= 1);
+      likes.innerText = `${nbOfLikes}`;
+
+      totalLikes = icon.firstElementChild.classList.contains("full")
+        ? (totalLikes += 1)
+        : (totalLikes -= 1);
+      photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
+    });
+  });
+}
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -296,14 +327,18 @@ function fetchData(url) {
         if (photographerId === id) {
           if (media.image) {
             objectMedia = new Image(media);
+            totalLikes += objectMedia.likes;
             objectMedia.display(firstName);
           }
           if (media.video) {
             objectMedia = new Video(media);
+            totalLikes += objectMedia.likes;
             objectMedia.display(firstName);
           }
         }
       });
+
+      totalLikesAndPrice(newPhotographer);
 
       return response;
     });
