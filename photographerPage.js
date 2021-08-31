@@ -182,16 +182,22 @@ class Video {
     videoContainer.classList.add("videoContainer");
 
     const videoVideo = document.createElement("video");
-    videoVideo.setAttribute("src", `assets/${firstName}/${this.video}`);
-    videoVideo.setAttribute("type", "video/mp4");
+    const videoSource = document.createElement("source");
+    videoSource.setAttribute("src", `assets/${firstName}/${this.video}`);
+    videoSource.setAttribute("type", "video/mp4");
+    videoVideo.classList.add("media");
+    videoVideo.appendChild(videoSource);
 
     const videoDescription = document.createElement("div");
+    videoDescription.classList.add("videoDescription");
 
     const videoTitle = document.createElement("div");
     videoTitle.innerHTML = this.title;
+    videoTitle.classList.add("videoTitle");
 
     const videoLikes = document.createElement("div");
     videoLikes.innerHTML = this.likes;
+    videoLikes.classList.add("videoLikes");
 
     const videoHeart = document.createElement("a");
     const videoHeartClick = document.createElement("i");
@@ -229,36 +235,29 @@ class Image {
     imageImg.setAttribute("alt", `${this["alt-text"]}`);
     imageImg.classList.add("media");
 
+    const imageDescription = document.createElement("div");
+    imageDescription.classList.add("imageDescription");
+
     const imageTitle = document.createElement("div");
     imageTitle.innerHTML = this.title;
+    imageTitle.classList.add("imageTitle");
 
     const imageLikes = document.createElement("div");
     imageLikes.innerHTML = this.likes;
+    imageLikes.classList.add("imageLikes");
 
     const onclickImageLikes = document.createElement("a");
     const heartClick = document.createElement("i");
     heartClick.classList.add("fas", "fa-heart", "icon", "empty");
 
     imageContainer.appendChild(imageImg);
-    imageContainer.appendChild(imageTitle);
+    imageDescription.appendChild(imageTitle);
     onclickImageLikes.appendChild(heartClick);
     imageLikes.appendChild(onclickImageLikes);
-    imageContainer.appendChild(imageLikes);
+    imageDescription.appendChild(imageLikes);
+    imageContainer.appendChild(imageDescription);
 
     artistMediaGallery.appendChild(imageContainer);
-  }
-}
-
-class MediaGallery {
-  static createMedia(media) {
-    let objectMedia = null;
-    if (media.image) {
-      objectMedia = new Image(media);
-    }
-    if (media.video) {
-      objectMedia = new Video(media);
-    }
-    return objectMedia;
   }
 }
 
@@ -290,14 +289,20 @@ function fetchData(url) {
 
       medias.forEach((media) => {
         const firstName = newPhotographer.name.split(" ")[0];
+        const id = newPhotographer.id;
+        const { photographerId } = media;
         let objectMedia = null;
-        if (media.image) {
-          objectMedia = new Image(media);
+
+        if (photographerId === id) {
+          if (media.image) {
+            objectMedia = new Image(media);
+            objectMedia.display(firstName);
+          }
+          if (media.video) {
+            objectMedia = new Video(media);
+            objectMedia.display(firstName);
+          }
         }
-        if (media.video) {
-          objectMedia = new Video(media);
-        }
-        objectMedia.display(firstName);
       });
 
       return response;
