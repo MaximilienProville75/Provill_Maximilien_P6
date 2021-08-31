@@ -1,15 +1,13 @@
-import MediaGallery from "./mediaGallery.js";
-
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
 
 const artistBannerId = document.getElementById("photographBanner");
-const mediaGallery = document.getElementById("mediaGallery");
 
 let activeTagsArray = [];
 let nbOfLikes = 0;
 let totalLikes = 0;
 let chosenOption = [];
+let mediaList = [];
 
 class Photograph {
   constructor(name, id, city, country, tags, tagline, price, portrait) {
@@ -55,6 +53,11 @@ class Photograph {
     artistName.innerHTML = name;
     artistName.classList.add("ArtistName");
 
+    // const contactMeBtn = document.createElement("button");
+    // contactMeBtn.innerHTML = "Contactez-moi";
+    // contactMeBtn.className = "contactMeButton";
+    // contactMeBtn.type = "button";
+
     const artistCityCountry = document.createElement("div");
     artistCityCountry.innerHTML = city + ", " + country;
     artistCityCountry.classList.add("ArtistCity");
@@ -87,6 +90,7 @@ class Photograph {
 
     artistBanner.appendChild(artistPhot);
     artistBannerDescription.appendChild(artistName);
+    // artistDescription.appendChild(contactMeBtn);
     artistBannerDescription.appendChild(artistDescription);
     artistBannerDescription.appendChild(artistCityCountry);
     artistBannerDescription.appendChild(photographerTagList);
@@ -103,20 +107,14 @@ const orderbotArrow = document.getElementById("orderbotArrow");
 const orderSelected = document.getElementById("orderSelected");
 const filterOptions = document.querySelectorAll(".option");
 
-// * -- 'ORDER-BY' -- */
-// Options closing animation
 function openAndCloseDropdown() {
-  // Opening dropdown
   if (!orderOptions.classList.contains("open")) {
     orderOptions.classList.toggle("open");
-    orderByClick.setAttribute("aria-expanded", "true");
-    // Arrow animation
     orderbotArrow.animate([{ transform: "rotate(180deg)" }], {
       duration: 300,
       fill: "forwards",
     });
   } else {
-    // Closing dropdown
     orderbotArrow.animate([{ transform: "rotate(0deg)" }], {
       duration: 300,
       fill: "forwards",
@@ -134,14 +132,10 @@ function openAndCloseDropdown() {
     setTimeout(close, 300);
   }
 }
-
-// Dropdown click event
 orderByClick.addEventListener("click", (e) => {
   e.preventDefault();
   openAndCloseDropdown();
 });
-
-// Closing dropdown if click occurs anywhere else on page
 window.addEventListener("click", (e) => {
   if (
     orderOptions.classList.contains("open") &&
@@ -150,8 +144,6 @@ window.addEventListener("click", (e) => {
     openAndCloseDropdown();
   }
 });
-
-// Showing selected option in dropdown
 filterOptions.forEach((option) => {
   if (option.getAttribute("aria-selected") === "true") {
     orderSelected.innerText = option.innerText;
@@ -163,31 +155,126 @@ filterOptions.forEach((option) => {
     const filterLastSelected = document.querySelector(
       ".order-by__options > .hidden"
     );
-
-    // Unselect last selected element
     filterLastSelected.setAttribute("aria-selected", "false");
     filterLastSelected.classList.remove("hidden");
-
-    // Clicked element becomes new slected element
     option.classList.add("hidden");
     option.setAttribute("aria-selected", "true");
     orderSelected.innerText = option.innerText;
   });
 });
 
+const artistMediaGallery = document.getElementById("mediaGallery");
+
+class Video {
+  constructor({ id, photographerId, title, video, tags, likes, date, price }) {
+    this.id = id;
+    this.photographerId = photographerId;
+    this.title = title;
+    this.video = video;
+    this.tags = tags;
+    this.likes = likes;
+    this.date = date;
+    this.price = price;
+  }
+
+  display(firstName) {
+    const videoContainer = document.createElement("div");
+    videoContainer.classList.add("videoContainer");
+
+    const videoVideo = document.createElement("video");
+    videoVideo.setAttribute("src", `assets/${firstName}/${this.video}`);
+    videoVideo.setAttribute("type", "video/mp4");
+
+    const videoDescription = document.createElement("div");
+
+    const videoTitle = document.createElement("div");
+    videoTitle.innerHTML = this.title;
+
+    const videoLikes = document.createElement("div");
+    videoLikes.innerHTML = this.likes;
+
+    const videoHeart = document.createElement("a");
+    const videoHeartClick = document.createElement("i");
+    videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty");
+
+    videoContainer.appendChild(videoVideo);
+    videoDescription.appendChild(videoTitle);
+    videoHeart.appendChild(videoHeartClick);
+    videoLikes.appendChild(videoHeart);
+    videoDescription.appendChild(videoLikes);
+    videoContainer.appendChild(videoDescription);
+
+    artistMediaGallery.appendChild(videoContainer);
+  }
+}
+
+class Image {
+  constructor({ id, photographerId, title, image, tags, likes, date, price }) {
+    this.id = id;
+    this.photographerId = photographerId;
+    this.title = title;
+    this.image = image;
+    this.tags = tags;
+    this.likes = likes;
+    this.date = date;
+    this.price = price;
+  }
+
+  display(firstName) {
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("imageContainer");
+
+    const imageImg = document.createElement("img");
+    imageImg.setAttribute("src", `Sample_Photos/${firstName}/${this.image}`);
+    imageImg.setAttribute("alt", `${this["alt-text"]}`);
+    imageImg.classList.add("media");
+
+    const imageTitle = document.createElement("div");
+    imageTitle.innerHTML = this.title;
+
+    const imageLikes = document.createElement("div");
+    imageLikes.innerHTML = this.likes;
+
+    const onclickImageLikes = document.createElement("a");
+    const heartClick = document.createElement("i");
+    heartClick.classList.add("fas", "fa-heart", "icon", "empty");
+
+    imageContainer.appendChild(imageImg);
+    imageContainer.appendChild(imageTitle);
+    onclickImageLikes.appendChild(heartClick);
+    imageLikes.appendChild(onclickImageLikes);
+    imageContainer.appendChild(imageLikes);
+
+    artistMediaGallery.appendChild(imageContainer);
+  }
+}
+
+class MediaGallery {
+  static createMedia(media) {
+    let objectMedia = null;
+    if (media.image) {
+      objectMedia = new Image(media);
+    }
+    if (media.video) {
+      objectMedia = new Video(media);
+    }
+    return objectMedia;
+  }
+}
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
     .then(function (response) {
-      const { photographers } = response;
+      const { medias, photographers } = response;
       let newPhotographers = [];
-
+      let newPhotographer;
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
           photographer;
 
         if (pageId === id) {
-          const newPhotographer = new Photograph(
+          newPhotographer = new Photograph(
             name,
             id,
             city,
@@ -199,6 +286,18 @@ function fetchData(url) {
           );
           newPhotographer.renderArtistBanner();
         }
+      });
+
+      medias.forEach((media) => {
+        const firstName = newPhotographer.name.split(" ")[0];
+        let objectMedia = null;
+        if (media.image) {
+          objectMedia = new Image(media);
+        }
+        if (media.video) {
+          objectMedia = new Video(media);
+        }
+        objectMedia.display(firstName);
       });
 
       return response;

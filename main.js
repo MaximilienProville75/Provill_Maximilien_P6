@@ -102,8 +102,6 @@ class Photograph {
       if (!document.querySelector(`.tag[data-tag-name="${tag}"]`)) {
         const navTag = navTaglist.appendChild(document.createElement("li"));
         const navTagSpan = navTag.appendChild(document.createElement("span"));
-        navTagSpan.classList.add("screen-navItems-only");
-        // navTagSpan.innerText = "Tag";
         const navTagLink = navTag.appendChild(document.createElement("a"));
         navTagLink.setAttribute("href", "#");
         navTagLink.innerText = `#${tag}`;
@@ -116,7 +114,6 @@ class Photograph {
       const photographerSRtag = photographerTag.appendChild(
         document.createElement("span")
       );
-      photographerSRtag.classList.add("screen-reader-only");
       const photographerTagLink = photographerTag.appendChild(
         document.createElement("a")
       );
@@ -134,16 +131,16 @@ function filterPhotographers(element) {
     );
     element.blur();
 
-    if (element.classList.contains("active-tag")) {
+    if (element.classList.contains("activeTtag")) {
       allSimilarTags.forEach((similarTag) => {
-        similarTag.classList.remove("active-tag");
+        similarTag.classList.remove("activeTtag");
       });
       activeTagsArray = activeTagsArray.filter(
         (tag) => !(tag === element.dataset.tagName)
       );
     } else {
       allSimilarTags.forEach((similarTag) => {
-        similarTag.classList.add("active-tag");
+        similarTag.classList.add("activeTtag");
       });
       activeTagsArray.push(element.dataset.tagName);
     }

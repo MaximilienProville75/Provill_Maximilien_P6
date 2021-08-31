@@ -23,7 +23,6 @@ ul {
   cursor: pointer;
   border: 1px solid #c4c4c4;
   border-radius: 15px;
-  -webkit-transition: .2s ease-in-out;
   transition: .2s ease-in-out;
 }
 .BannerNav {
@@ -33,7 +32,7 @@ ul {
 
 .tag:hover,
 .tag:focus,
-.active-tag {
+.activeTtag {
   color: #fff;
   background-color: #901c1c;
   border: 1px solid transparent;
@@ -41,7 +40,7 @@ ul {
 
 .tag:hover a,
 .tag:focus a,
-.active-tag a {
+.activeTtag a {
   color: #fff;
 }
 
@@ -59,14 +58,12 @@ ul {
   margin: 0 auto;
   padding: 20px;
   display: flex;
-          flex-direction: row;
-      justify-content: space-around;
-          align-items: center;
-
-      flex-wrap: wrap;
-
-      column-gap: 25px;
-      row-gap: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 20px;
   max-width: 1000px;
 }
 
@@ -104,8 +101,7 @@ ul {
   padding: 10px;
 }
 .ArtistProfil:hover{
-    -webkit-transform: scale(1.03);
-          transform: scale(1.05);
+  transform: scale(1.05);
 
 }
 .Artistes .ArtistProfil .ArtistPhot{
@@ -374,32 +370,200 @@ header #BannerPhoto {
   }
 }
 
-/* Contact Me Button */
+/* Modal Css */
+.contactMeButton{
+}
 
-#ContactMeButton {
-  position: fixed;
-  background: #911C1C;
+
+.modalbg{
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 14%;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: none;
+
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+.close {
+    padding-left: 52px;
+    width: 32px;
+    height: 44px;
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(2);
+    color: #901c1c;
+    margin-top: 31px;
+
+}
+
+.headerCross{
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#formDiv{
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container{
+  background-color: #DB8876;
   border-radius: 5px;
-  z-index: 5;
-  top: 95%;
-  left: 33%;
+  box-shadow: 0px 2px 5px rgba(0 ,0 ,0 ,0.3);
+  width: 400px;
+  max-width: 100%;
+  color: white;
+  
 }
-#ContactMeButton span {
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 23px;
-  text-align: center;
-  color: #FFFFFF;
+
+.formHeader h2{
+  margin: 0;
+}
+
+.form{
+  padding: 30px 40px;
+}
+
+.form-control{
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.form-control label{
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.form-control input{
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
   padding: 10px;
-  letter-spacing: 0.7px;
+  font-size: 14px;
 }
-#ContactMeButton:hover {
-  background-color: #D3573C;
-  border: 1px solid white;
-  box-shadow: 1px 1px 1px;
+
+.form-control.success input{
+  border-color: #2ecc71;
+}
+
+.form-control.error input{
+  border-color: #901C1C;
+
+}
+
+.form-control i{
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  visibility: hidden;
+}
+
+.form-control.success i.fa-check-circle{
+  visibility: visible;
+  color: #2ecc71;
+}
+
+.form-control.error i.fa-exclamation-circle{
+  visibility: visible;
+  color: #e74c3c;
+}
+
+.form-control small{
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form-control.error small{
+  visibility: visible;
+  color: #901C1C;
+}
+
+.form button{
+  background-color : #901C1C;
+  color: white;
+  border: 2px solid #901C1C;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  font-size:  16px;
+  border-radius: 4px;
+}
+
+.CommentInput{
+  height: 100px;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+#confirmation{
+  width: 100%;
+  margin: auto;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  justify-content: space-evenly;
+  height: 500px;
+  padding-bottom: 40px;
+}
+
+#confirmation .btnClose {
+  right: 0;
+  bottom: 45px;
+  left: 0;
+  background-color : #901C1C;
+  color: white;
+  border: 2px solid #901C1C;
+  display: block;
+  padding: 10px;
+  width: 200px;
+  font-size:  16px;
+  border-radius: 4px;
+}
+
+#confirmation h1{
+  color: white;
 }
 
 
+/* Media Gallery */
+#mediaGallery{
+  max-width: 900px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.videoContainer{
+
+}
+
+.imageContainer{
+  width: 300px;
+  height: 300px;
+}
+.videoContainer{
+  width: 300px;
+}
+
+.media{
+  width: 300px;
+  height: 300px;
+}
 
 .footer {
   margin: 20px;
