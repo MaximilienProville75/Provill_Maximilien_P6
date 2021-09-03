@@ -1,3 +1,26 @@
+::-webkit-scrollbar {
+  width: 7px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+  padding: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 4px;
+}
+
+.lightbox::-webkit-scrollbar-track {
+  background: black;
+}
+
+.lightbox::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .3);
+}
+
 header {
   margin-bottom: 30px;
 }
@@ -592,7 +615,86 @@ header #BannerPhoto {
 #price-container{
   visibility: hidden;
 }
+/* lightbox */
+.lightbox{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0 ,0 ,0 ,0.3);
+  z-index: 10;
+  overflow: auto;
+  animation: lightboxIn .5s;
+  transition: opacity 0.3s;
+}
 
+.lightbox-next, .lightbox-prev{
+  border: none;
+  background: url(svgRepo/rightArrow.svg) center center / 100% 100%;
+  width: 20px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  margin-top: -14px;
+  z-index: 11;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: .3s;
+  right: 0;
+}
+
+.lightbox-prev{
+  right: auto;
+  left: 0;
+  transform: rotate(180deg);
+  
+}
+
+.lightbox-next:hover, .lightbox-prev:hover, .lightbox-close:hover{
+  opacity: 1;
+}
+
+.lightbox-close{
+  width: 20px;
+  height: 20px;
+  background: url(svgRepo/crossClose.svg) center center / 100% 100% transparent;
+  border: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: .3s;
+  z-index: 12;
+
+}
+.lightbox-container img{
+  max-width: 100%;
+  height: auto;
+  animation: lightboxIn .5s;
+}
+
+.lightbox-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin-left: 50px;
+  margin-right: 50px;
+
+}
+
+.lightbox.fadeOut{
+  opacity: 0;
+}
+
+@keyframes lighboxIn{
+  from {
+    opacity: 0;}
+    to {
+      opacity: 1}
+}
 
 @media screen and (min-width: 750px) {
   #filterOrderBy {

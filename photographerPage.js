@@ -183,7 +183,8 @@ class Video {
 
     const videoVideo = document.createElement("video");
     const videoSource = document.createElement("source");
-    videoSource.setAttribute("src", `assets/${firstName}/${this.video}`);
+    videoVideo.controls = true;
+    videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
     videoSource.setAttribute("type", "video/mp4");
     videoVideo.classList.add("media");
     videoVideo.appendChild(videoSource);
@@ -292,6 +293,114 @@ function animateAndIncrementLikes() {
   });
 }
 
+class MediaFactory {
+  static createMedia(media) {
+    let objectMedia = null;
+    if (media.image) {
+      objectMedia = new Image(media);
+    }
+    if (media.video) {
+      objectMedia = new Video(media);
+    }
+    return objectMedia;
+  }
+}
+
+class Lightbox {
+  static init() {
+    const links = Array.from(
+      document.querySelectorAll(
+        'a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
+      )
+    );
+    const gallery = links.map((link) => link.getAttribute("href"));
+
+    links.forEach((link) =>
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        new Lightbox(e.currentTarget.getAttribute("href").gallery);
+      })
+    );
+  }
+
+  constructor(url, gallery) {
+    this.element = this.buildDOM(url);
+    this.gallery = gallery;
+    document.body.appendChild(this.element);
+    this.onKeyUp = this.onKeyUp(this.element);
+    document.addEventListener("keyup", this.onKeyUp);
+  }
+
+  loadMedia(url) {
+    this.url = null;
+    const media = new MediaFactory();
+    const container = this.element.querySelector(".lightbox-container");
+    container.innerText = "";
+    container.appendChild(media);
+  }
+
+  onKeyUp(e) {
+    if ((e.key = "Escape")) {
+      this.close(e);
+    } else if ((e.key = "ArrowLeft")) {
+      this.prev(e);
+    } else if ((e.key = "ArrowRight")) {
+      this.next(e);
+    }
+  }
+
+  close(e) {
+    e.preventDefault();
+    this.element.classList.add("fadeOut");
+    window.setTimeout(() => {
+      this.element.parentElement.removeChild(this.element);
+    }, 500);
+    document.removeEventListener("keyup", this.onKeyUp);
+  }
+
+  next(e) {
+    e.preventDefault();
+    let i = this.media.findIndex((media) => (media = this.url));
+
+    if ((i = this.media.length - 1)) {
+      i = -1;
+    }
+    this.loadMedia(this.media[i + 1]);
+  }
+
+  prev(e) {
+    e.preventDefault();
+    let i = this.media.findIndex((media) => (media = this.url));
+
+    if ((i = 0)) {
+      i = this.media.length;
+    }
+    this.loadMedia(this.media[i - 1]);
+  }
+
+  buildDOM(url) {
+    const dom = document.createElement("div");
+    dom.classList.add("lightbox");
+    dom.innerHTML = `<div class="lightbox">
+    <button class="lightbox-close"></button>
+    <button class="lightbox-next"></button>
+    <button class="lightbox-prev"></button>
+    <div class="lightbox-container">
+    </div>
+    </div> `;
+    dom
+      .querySelector(".lightbox-close")
+      .addEventListener("click", this.close.bind(this));
+    dom
+      .querySelector(".lightbox-next")
+      .addEventListener("click", this.next.bind(this));
+    dom
+      .querySelector(".lightbox-prev")
+      .addEventListener("click", this.prev.bind(this));
+    return dom;
+  }
+}
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -339,7 +448,6 @@ function fetchData(url) {
       });
 
       totalLikesAndPrice(newPhotographer);
-
       return response;
     });
 }
