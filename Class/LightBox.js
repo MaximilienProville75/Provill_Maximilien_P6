@@ -1,3 +1,5 @@
+import MediaFactory from "./MediaFactory.js";
+
 export default class Lightbox {
   static init() {
     const domMedia = Array.from(
@@ -6,7 +8,6 @@ export default class Lightbox {
 
     console.log(domMedia);
     const gallery = domMedia.map((link) => link.getAttribute("src"));
-    console.log(gallery);
 
     domMedia.forEach((link) =>
       link.addEventListener("click", (e) => {
@@ -19,6 +20,8 @@ export default class Lightbox {
         });
       })
     );
+
+    return gallery;
   }
 
   constructor({ url, title }, gallery) {
@@ -34,10 +37,11 @@ export default class Lightbox {
     const container = this.element.querySelector(".lightbox-container");
     container.innerText = "";
     container.appendChild(media);
+    console.log(container);
   }
 
   onKeyUp(e) {
-    if (e.key === "Escape") {
+    if (e.key === "Escape" || e.code === "Escape") {
       this.close(e);
     } else if (e.key === "ArrowLeft") {
       this.prev(e);
@@ -57,7 +61,8 @@ export default class Lightbox {
 
   next(e) {
     e.preventDefault();
-    let i = this.media.findIndex((media) => (media = this.gallery));
+    console.log(this.media);
+    let i = this.media.findIndex((media) => (media = this.url));
 
     if ((i = this.media.length - 1)) {
       i = -1;
@@ -67,7 +72,7 @@ export default class Lightbox {
 
   prev(e) {
     e.preventDefault();
-    let i = this.gallery.findIndex((media) => (media = this.gallery));
+    let i = this.media.findIndex((media) => (media = this.url));
 
     if ((i = 0)) {
       i = this.media.length;
@@ -76,9 +81,19 @@ export default class Lightbox {
   }
 
   buildDOM(url, title) {
-    console.log(title);
     const dom = document.createElement("div");
     dom.classList.add("lightbox");
+    // let result = "";
+    // if (element.image) {
+    //   result = `<img src="${url}/>`;
+    //   return result;
+    // } else if (element.video) {
+    //   result = `<video controls="">
+    //             <source src="${url}" type="video/mp4">
+    //           </video>
+    //           `;
+    //   return result;
+    // }
 
     // <video controls="" class="media"><source src="${url}"></video>
 
@@ -87,8 +102,8 @@ export default class Lightbox {
       <button class="lightbox-next"></button>
       <button class="lightbox-prev"></button>
       <div class="lightbox-container">
-      <img src="${url}" alt="" />
-      
+     
+      <img src="${url}"/>
       <div class="lightbox-container-title">
       ${title}
       </div>

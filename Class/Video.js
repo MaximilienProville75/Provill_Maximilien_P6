@@ -33,10 +33,15 @@ export default class Video {
     videoTitle.classList.add("videoTitle");
 
     const videoLikes = document.createElement("div");
-    videoLikes.innerHTML = this.likes;
-    videoLikes.classList.add("videoLikes");
+    videoLikes.setAttribute("arial-label", "likes");
+    videoLikes.classList.add("totalLikesBox");
+    const videoLikesCount = document.createElement("span");
+    videoLikesCount.innerHTML = this.likes;
+    videoLikesCount.classList.add("videoLikes");
+    videoLikes.appendChild(videoLikesCount);
 
     const videoHeart = document.createElement("a");
+    videoHeart.classList.add("heart");
     const videoHeartClick = document.createElement("i");
     videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty");
 

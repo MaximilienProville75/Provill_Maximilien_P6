@@ -30,12 +30,17 @@ export default class Image {
     imageTitle.classList.add("imageTitle");
 
     const imageLikes = document.createElement("div");
-    imageLikes.innerHTML = this.likes;
-    imageLikes.classList.add("imageLikes");
+    imageLikes.setAttribute("arial-label", "likes");
+    imageLikes.classList.add("totalLikesBox");
+    const imageLikesCount = document.createElement("span");
+    imageLikesCount.innerHTML = this.likes;
+    imageLikesCount.classList.add("imageLikes");
+    imageLikes.appendChild(imageLikesCount);
 
     const onclickImageLikes = document.createElement("a");
+    onclickImageLikes.classList.add("heart");
     const heartClick = document.createElement("i");
-    heartClick.classList.add("fas", "fa-heart", "icon", "empty");
+    heartClick.classList.add("fas", "fa-heart", "icon", "empty", "heart");
 
     imageContainer.appendChild(imageImg);
     imageDescription.appendChild(imageTitle);

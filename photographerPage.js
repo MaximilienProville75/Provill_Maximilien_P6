@@ -145,6 +145,7 @@ function fetchData(url) {
           objectMedia.display(firstName);
         }
       });
+      animateAndIncrementLikes();
       Lightbox.init();
       totalLikesAndPrice(newPhotographer);
       return response;

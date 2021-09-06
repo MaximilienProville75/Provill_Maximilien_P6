@@ -395,7 +395,7 @@ header #BannerPhoto {
 
 /* Modal Css */
 .contactMeButton{
-  position: fixed;
+  position: absolute;
     bottom: 10px;
     width: auto;
     margin-left: auto;
@@ -418,7 +418,7 @@ header #BannerPhoto {
     position: fixed;
     z-index: 2;
     left: 0;
-    top: 14%;
+    top: 9%;
     height: 100%;
     width: 100%;
     overflow: auto;
@@ -608,13 +608,25 @@ header #BannerPhoto {
   color: #901C1C;
   display: flex;
   justify-content: space-between;
-  width: 40px;
+  width: 25px;
 }
 
 /* PRICE LIKES */
 #price-container{
   visibility: hidden;
 }
+
+.empty {
+  color: transparent;
+  -webkit-text-stroke-width: 1.45px;
+  -webkit-text-stroke-color: #901c1c;
+}
+
+.totalLikesBox {
+  display: flex;
+  flex-direction: row;
+}
+
 /* lightbox */
 .lightbox{
   position: fixed;
@@ -674,6 +686,8 @@ header #BannerPhoto {
   max-height: 80vh;
   object-fit: cover;
   animation: lightboxIn .5s;
+  border-radius: 10px;
+    box-shadow: 4px 5px 7px 1px;
 }
 
 .lightbox-container{
