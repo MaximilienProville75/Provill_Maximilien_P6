@@ -622,7 +622,7 @@ header #BannerPhoto {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color:rgba(0 ,0 ,0 ,0.3);
+  background-color:rgba(255,255,255, 0.65);;
   z-index: 10;
   overflow: auto;
   animation: lightboxIn .5s;
@@ -656,13 +656,13 @@ header #BannerPhoto {
 }
 
 .lightbox-close{
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
   background: url(svgRepo/crossClose.svg) center center / 100% 100% transparent;
   border: none;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 37px;
+    right: 27px;
   opacity: 0.5;
   cursor: pointer;
   transition: .3s;
@@ -671,18 +671,24 @@ header #BannerPhoto {
 }
 .lightbox-container img{
   max-width: 100%;
-  height: auto;
+  max-height: 80vh;
+  object-fit: cover;
   animation: lightboxIn .5s;
 }
 
 .lightbox-container{
   display: flex;
-  align-items: center;
   justify-content: center;
   min-height: 100vh;
   margin-left: 50px;
   margin-right: 50px;
+  flex-direction: column;
+}
 
+.lightbox-container-title{
+  font-size: 24px;
+  color: #901C1C;
+  margin-top: 15px;
 }
 
 .lightbox.fadeOut{

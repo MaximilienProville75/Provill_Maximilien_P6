@@ -1,103 +1,15 @@
+import Photograph from "./Class/Photograph.js";
+import MediaFactory from "./Class/MediaFactory.js";
+import Lightbox from "./Class/LightBox.js";
+
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
-
-const artistBannerId = document.getElementById("photographBanner");
 
 let activeTagsArray = [];
 let nbOfLikes = 0;
 let totalLikes = 0;
 let chosenOption = [];
 let mediaList = [];
-
-class Photograph {
-  constructor(name, id, city, country, tags, tagline, price, portrait) {
-    this.name = name;
-    this.id = id;
-    this.city = city;
-    this.country = country;
-    this.tags = tags;
-    this.tagline = tagline;
-    this.price = price;
-    this.portrait = `/Sample_Photos/Portraits/${portrait}`;
-  }
-
-  computePhotographerVariables() {
-    return {
-      name: this.name,
-      id: this.id,
-      city: this.city,
-      country: this.country,
-      tags: this.tags,
-      tagline: this.tagline,
-      price: this.price,
-      portrait: this.portrait,
-    };
-  }
-
-  renderArtistBanner() {
-    const photographer = this.computePhotographerVariables();
-    const { name, id, city, country, tags, tagline, portrait } = photographer;
-
-    const artistBanner = document.createElement("section");
-    artistBanner.classList.add("artistBanner");
-
-    const artistBannerDescription = document.createElement("div");
-    artistBannerDescription.classList.add("artistBannerDescription");
-
-    const artistPhot = document.createElement("img");
-    artistPhot.setAttribute("src", portrait);
-    artistPhot.setAttribute("alt", `Portrait de ${name}`);
-    artistPhot.classList.add("artistBannerPortrait");
-
-    const artistName = document.createElement("div");
-    artistName.innerHTML = name;
-    artistName.classList.add("ArtistName");
-
-    // const contactMeBtn = document.createElement("button");
-    // contactMeBtn.innerHTML = "Contactez-moi";
-    // contactMeBtn.className = "contactMeButton";
-    // contactMeBtn.type = "button";
-
-    const artistCityCountry = document.createElement("div");
-    artistCityCountry.innerHTML = city + ", " + country;
-    artistCityCountry.classList.add("ArtistCity");
-
-    const artistDescription = document.createElement("div");
-    artistDescription.innerHTML = tagline;
-    artistDescription.classList.add("ArtistDescription");
-
-    const photographerTagList = artistBanner.appendChild(
-      document.createElement("ul")
-    );
-    photographerTagList.classList.add("artistBannerHashtags");
-    artistBanner.dataset.tags = tags.join(",");
-    tags.forEach((tag) => {
-      const photographerTag = photographerTagList.appendChild(
-        document.createElement("li")
-      );
-      const photographerSRtag = photographerTag.appendChild(
-        document.createElement("span")
-      );
-      photographerSRtag.classList.add("screen-reader-only");
-      const photographerTagLink = photographerTag.appendChild(
-        document.createElement("a")
-      );
-      photographerTagLink.dataset.tagName = tag;
-      photographerTagLink.classList.add("tag");
-      photographerTagLink.setAttribute("href", "#");
-      photographerTagLink.innerText = `#${tag}`;
-    });
-
-    artistBanner.appendChild(artistPhot);
-    artistBannerDescription.appendChild(artistName);
-    // artistDescription.appendChild(contactMeBtn);
-    artistBannerDescription.appendChild(artistDescription);
-    artistBannerDescription.appendChild(artistCityCountry);
-    artistBannerDescription.appendChild(photographerTagList);
-    artistBanner.appendChild(artistBannerDescription);
-    artistBannerId.appendChild(artistBanner);
-  }
-}
 
 const filterOrderBy = document.getElementById("filterOrderBy");
 const orderByClick = document.getElementById("orderByClick");
@@ -163,105 +75,6 @@ filterOptions.forEach((option) => {
   });
 });
 
-const artistMediaGallery = document.getElementById("mediaGallery");
-
-class Video {
-  constructor({ id, photographerId, title, video, tags, likes, date, price }) {
-    this.id = id;
-    this.photographerId = photographerId;
-    this.title = title;
-    this.video = video;
-    this.tags = tags;
-    this.likes = likes;
-    this.date = date;
-    this.price = price;
-  }
-
-  display(firstName) {
-    const videoContainer = document.createElement("div");
-    videoContainer.classList.add("videoContainer");
-
-    const videoVideo = document.createElement("video");
-    const videoSource = document.createElement("source");
-    videoVideo.controls = true;
-    videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
-    videoSource.setAttribute("type", "video/mp4");
-    videoVideo.classList.add("media");
-    videoVideo.appendChild(videoSource);
-
-    const videoDescription = document.createElement("div");
-    videoDescription.classList.add("videoDescription");
-
-    const videoTitle = document.createElement("div");
-    videoTitle.innerHTML = this.title;
-    videoTitle.classList.add("videoTitle");
-
-    const videoLikes = document.createElement("div");
-    videoLikes.innerHTML = this.likes;
-    videoLikes.classList.add("videoLikes");
-
-    const videoHeart = document.createElement("a");
-    const videoHeartClick = document.createElement("i");
-    videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty");
-
-    videoContainer.appendChild(videoVideo);
-    videoDescription.appendChild(videoTitle);
-    videoHeart.appendChild(videoHeartClick);
-    videoLikes.appendChild(videoHeart);
-    videoDescription.appendChild(videoLikes);
-    videoContainer.appendChild(videoDescription);
-
-    artistMediaGallery.appendChild(videoContainer);
-  }
-}
-
-class Image {
-  constructor({ id, photographerId, title, image, tags, likes, date, price }) {
-    this.id = id;
-    this.photographerId = photographerId;
-    this.title = title;
-    this.image = image;
-    this.tags = tags;
-    this.likes = likes;
-    this.date = date;
-    this.price = price;
-  }
-
-  display(firstName) {
-    const imageContainer = document.createElement("div");
-    imageContainer.classList.add("imageContainer");
-
-    const imageImg = document.createElement("img");
-    imageImg.setAttribute("src", `Sample_Photos/${firstName}/${this.image}`);
-    imageImg.setAttribute("alt", `${this["alt-text"]}`);
-    imageImg.classList.add("media");
-
-    const imageDescription = document.createElement("div");
-    imageDescription.classList.add("imageDescription");
-
-    const imageTitle = document.createElement("div");
-    imageTitle.innerHTML = this.title;
-    imageTitle.classList.add("imageTitle");
-
-    const imageLikes = document.createElement("div");
-    imageLikes.innerHTML = this.likes;
-    imageLikes.classList.add("imageLikes");
-
-    const onclickImageLikes = document.createElement("a");
-    const heartClick = document.createElement("i");
-    heartClick.classList.add("fas", "fa-heart", "icon", "empty");
-
-    imageContainer.appendChild(imageImg);
-    imageDescription.appendChild(imageTitle);
-    onclickImageLikes.appendChild(heartClick);
-    imageLikes.appendChild(onclickImageLikes);
-    imageDescription.appendChild(imageLikes);
-    imageContainer.appendChild(imageDescription);
-
-    artistMediaGallery.appendChild(imageContainer);
-  }
-}
-
 const photographerTotalLikes = document.getElementById("totalLikes");
 const photographerPrice = document.getElementById("price");
 
@@ -293,114 +106,6 @@ function animateAndIncrementLikes() {
   });
 }
 
-class MediaFactory {
-  static createMedia(media) {
-    let objectMedia = null;
-    if (media.image) {
-      objectMedia = new Image(media);
-    }
-    if (media.video) {
-      objectMedia = new Video(media);
-    }
-    return objectMedia;
-  }
-}
-
-class Lightbox {
-  static init() {
-    const links = Array.from(
-      document.querySelectorAll(
-        'a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
-      )
-    );
-    const gallery = links.map((link) => link.getAttribute("href"));
-
-    links.forEach((link) =>
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        new Lightbox(e.currentTarget.getAttribute("href").gallery);
-      })
-    );
-  }
-
-  constructor(url, gallery) {
-    this.element = this.buildDOM(url);
-    this.gallery = gallery;
-    document.body.appendChild(this.element);
-    this.onKeyUp = this.onKeyUp(this.element);
-    document.addEventListener("keyup", this.onKeyUp);
-  }
-
-  loadMedia(url) {
-    this.url = null;
-    const media = new MediaFactory();
-    const container = this.element.querySelector(".lightbox-container");
-    container.innerText = "";
-    container.appendChild(media);
-  }
-
-  onKeyUp(e) {
-    if ((e.key = "Escape")) {
-      this.close(e);
-    } else if ((e.key = "ArrowLeft")) {
-      this.prev(e);
-    } else if ((e.key = "ArrowRight")) {
-      this.next(e);
-    }
-  }
-
-  close(e) {
-    e.preventDefault();
-    this.element.classList.add("fadeOut");
-    window.setTimeout(() => {
-      this.element.parentElement.removeChild(this.element);
-    }, 500);
-    document.removeEventListener("keyup", this.onKeyUp);
-  }
-
-  next(e) {
-    e.preventDefault();
-    let i = this.media.findIndex((media) => (media = this.url));
-
-    if ((i = this.media.length - 1)) {
-      i = -1;
-    }
-    this.loadMedia(this.media[i + 1]);
-  }
-
-  prev(e) {
-    e.preventDefault();
-    let i = this.media.findIndex((media) => (media = this.url));
-
-    if ((i = 0)) {
-      i = this.media.length;
-    }
-    this.loadMedia(this.media[i - 1]);
-  }
-
-  buildDOM(url) {
-    const dom = document.createElement("div");
-    dom.classList.add("lightbox");
-    dom.innerHTML = `<div class="lightbox">
-    <button class="lightbox-close"></button>
-    <button class="lightbox-next"></button>
-    <button class="lightbox-prev"></button>
-    <div class="lightbox-container">
-    </div>
-    </div> `;
-    dom
-      .querySelector(".lightbox-close")
-      .addEventListener("click", this.close.bind(this));
-    dom
-      .querySelector(".lightbox-next")
-      .addEventListener("click", this.next.bind(this));
-    dom
-      .querySelector(".lightbox-prev")
-      .addEventListener("click", this.prev.bind(this));
-    return dom;
-  }
-}
-
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -408,6 +113,7 @@ function fetchData(url) {
       const { medias, photographers } = response;
       let newPhotographers = [];
       let newPhotographer;
+      let newLightbox;
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
           photographer;
@@ -434,19 +140,12 @@ function fetchData(url) {
         let objectMedia = null;
 
         if (photographerId === id) {
-          if (media.image) {
-            objectMedia = new Image(media);
-            totalLikes += objectMedia.likes;
-            objectMedia.display(firstName);
-          }
-          if (media.video) {
-            objectMedia = new Video(media);
-            totalLikes += objectMedia.likes;
-            objectMedia.display(firstName);
-          }
+          objectMedia = MediaFactory.createMedia(media);
+          totalLikes += objectMedia.likes;
+          objectMedia.display(firstName);
         }
       });
-
+      Lightbox.init();
       totalLikesAndPrice(newPhotographer);
       return response;
     });
