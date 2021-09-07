@@ -15,9 +15,8 @@ export default class Lightbox {
     return domMedia.map((link) => link.getAttribute("src"));
   }
 
-  loadMedia(currentIndex = null) {
-    document.body.appendChild(this.buildDOM());
-    return currentIndex;
+  loadMedia(index) {
+    document.body.appendChild(this.buildDOM(index));
   }
 
   onKeyUp(e) {
@@ -30,40 +29,47 @@ export default class Lightbox {
     }
   }
 
-  close(e) {
+  close(e, currentIndex) {
     e.preventDefault();
-    this.element.classList.add("fadeOut");
-    window.setTimeout(() => {
-      this.element.parentElement.removeChild(this.element);
-    }, 500);
-    document.removeEventListener("keyup", this.onKeyUp);
+    // Find a way to remove all lightboxes from body
   }
 
-  next(e) {
+  next(e, incrementedIndex) {
     e.preventDefault();
-    let i = this.media.findIndex((media) => media === this.url);
-    console.log(i);
-    if (i === this.media.length - 1) {
-      i = -1;
+    this.loadMedia(incrementedIndex);
+  }
+
+  prev(e, decrementedIndex) {
+    e.preventDefault();
+    this.loadMedia(decrementedIndex);
+  }
+
+  resetLightBoxes() {
+    const hasLightBox = document.getElementById("lightbox");
+    if (hasLightBox) {
+      hasLightBox.parentNode.removeChild(hasLightBox);
     }
-    this.loadMedia(this.media[i + 1]);
   }
 
-  prev(e) {
-    e.preventDefault();
-    let i = this.media.findIndex((media) => (media = this.url));
-
-    if ((i = 0)) {
-      i = this.media.length;
+  hasNext(currentIndex) {
+    const gallery = this.retrieveGallery();
+    if (currentIndex === gallery.length) {
+      console.log("is last");
     }
-    this.loadMedia(this.media[i - 1]);
   }
 
-  buildDOM() {
+  buildDOM(currentIndex) {
+    this.resetLightBoxes();
+    const gallery = this.retrieveGallery();
+    // check current index compared to the gallery array length
+    // last element ? hide next button
+    // first element ? hide prev button
+
     const lightbox = document.createElement("div");
-    const imageUrl = `../Sample_Photos/${this.firstName}/${this.url}`;
+    const imageUrl = `../${gallery[currentIndex]}`;
 
     lightbox.classList.add("lightbox");
+    lightbox.setAttribute("id", "lightbox");
     lightbox.innerHTML = `<div>
         <button class="lightbox-close"></button>
         <button class="lightbox-next"></button>
@@ -78,13 +84,13 @@ export default class Lightbox {
 
     lightbox
       .querySelector(".lightbox-close")
-      .addEventListener("click", this.close);
+      .addEventListener("click", (e) => this.close(e, currentIndex));
     lightbox
       .querySelector(".lightbox-next")
-      .addEventListener("click", this.next);
+      .addEventListener("click", (e) => this.next(e, currentIndex + 1));
     lightbox
       .querySelector(".lightbox-prev")
-      .addEventListener("click", this.prev);
+      .addEventListener("click", (e) => this.prev(e, currentIndex - 1));
 
     return lightbox;
   }
