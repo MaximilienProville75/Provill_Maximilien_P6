@@ -140,13 +140,13 @@ function fetchData(url) {
         let objectMedia = null;
 
         if (photographerId === id) {
-          objectMedia = MediaFactory.createMedia(media);
+          objectMedia = MediaFactory.createMedia(media, firstName);
           totalLikes += objectMedia.likes;
           objectMedia.display(firstName);
         }
       });
       animateAndIncrementLikes();
-      Lightbox.init();
+
       totalLikesAndPrice(newPhotographer);
       return response;
     });

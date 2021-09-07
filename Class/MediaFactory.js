@@ -1,15 +1,18 @@
 import Video from "./Video.js";
 import Image from "./Image.js";
+import Lightbox from "./LightBox.js";
 
 export default class MediaFactory {
-  static createMedia(media) {
-    let objectMedia = null;
+  static createMedia(media, firstName) {
     if (media.image) {
-      objectMedia = new Image(media);
+      const imageLightBox = new Lightbox(media, firstName);
+      const image = new Image(media, imageLightBox);
+      return image;
     }
     if (media.video) {
-      objectMedia = new Video(media);
+      const videoLightBox = new Lightbox(media, firstName);
+      return new Video(media, videoLightBox);
     }
-    return objectMedia;
+    return null;
   }
 }

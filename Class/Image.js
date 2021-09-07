@@ -1,7 +1,10 @@
 const artistMediaGallery = document.getElementById("mediaGallery");
 
 export default class Image {
-  constructor({ id, photographerId, title, image, tags, likes, date, price }) {
+  constructor(
+    { id, photographerId, title, image, tags, likes, date, price },
+    lightBox
+  ) {
     this.id = id;
     this.photographerId = photographerId;
     this.title = title;
@@ -10,6 +13,7 @@ export default class Image {
     this.likes = likes;
     this.date = date;
     this.price = price;
+    this.lightBox = lightBox;
   }
 
   display(firstName) {
@@ -20,6 +24,12 @@ export default class Image {
     imageImg.setAttribute("src", `Sample_Photos/${firstName}/${this.image}`);
     imageImg.setAttribute("alt", `${this["alt-text"]}`);
     imageImg.setAttribute("data-title", this.title);
+    imageImg.addEventListener("click", () => {
+      const gallery = this.lightBox.retrieveGallery();
+      const links = gallery.map((media) => media.split("/")[2]);
+      const currentIndex = links.indexOf(this.image);
+      this.lightBox.loadMedia(currentIndex);
+    });
     imageImg.classList.add("media");
 
     const imageDescription = document.createElement("div");

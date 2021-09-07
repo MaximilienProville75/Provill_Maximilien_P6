@@ -1,43 +1,23 @@
 import MediaFactory from "./MediaFactory.js";
 
 export default class Lightbox {
-  static init() {
+  constructor(media, firstName) {
+    this.media = media;
+    this.firstName = firstName;
+    this.title = media?.title;
+    this.url = this.media?.image ? this.media?.image : this.media?.video;
+  }
+
+  retrieveGallery() {
     const domMedia = Array.from(
       document.querySelectorAll(".imageContainer img, .videoContainer source")
     );
-
-    console.log(domMedia);
-    const gallery = domMedia.map((link) => link.getAttribute("src"));
-
-    domMedia.forEach((link) =>
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        //Changer structure => anchor pas div
-        console.log(e.currentTarget.getAttribute("src"));
-        new Lightbox({
-          url: e.currentTarget.getAttribute("src"),
-          title: e.currentTarget.getAttribute("data-title"),
-        });
-      })
-    );
-
-    return gallery;
+    return domMedia.map((link) => link.getAttribute("src"));
   }
 
-  constructor({ url, title }, gallery) {
-    this.element = this.buildDOM(url, title);
-    this.gallery = gallery;
-    document.body.appendChild(this.element);
-    document.addEventListener("keyup", this.onKeyUp);
-  }
-
-  loadMedia(url) {
-    this.url = null;
-    const media = new MediaFactory();
-    const container = this.element.querySelector(".lightbox-container");
-    container.innerText = "";
-    container.appendChild(media);
-    console.log(container);
+  loadMedia(currentIndex = null) {
+    document.body.appendChild(this.buildDOM());
+    return currentIndex;
   }
 
   onKeyUp(e) {
@@ -61,10 +41,9 @@ export default class Lightbox {
 
   next(e) {
     e.preventDefault();
-    console.log(this.media);
-    let i = this.media.findIndex((media) => (media = this.url));
-
-    if ((i = this.media.length - 1)) {
+    let i = this.media.findIndex((media) => media === this.url);
+    console.log(i);
+    if (i === this.media.length - 1) {
       i = -1;
     }
     this.loadMedia(this.media[i + 1]);
@@ -80,45 +59,33 @@ export default class Lightbox {
     this.loadMedia(this.media[i - 1]);
   }
 
-  buildDOM(url, title) {
-    const dom = document.createElement("div");
-    dom.classList.add("lightbox");
-    // let result = "";
-    // if (element.image) {
-    //   result = `<img src="${url}/>`;
-    //   return result;
-    // } else if (element.video) {
-    //   result = `<video controls="">
-    //             <source src="${url}" type="video/mp4">
-    //           </video>
-    //           `;
-    //   return result;
-    // }
+  buildDOM() {
+    const lightbox = document.createElement("div");
+    const imageUrl = `../Sample_Photos/${this.firstName}/${this.url}`;
 
-    // <video controls="" class="media"><source src="${url}"></video>
+    lightbox.classList.add("lightbox");
+    lightbox.innerHTML = `<div>
+        <button class="lightbox-close"></button>
+        <button class="lightbox-next"></button>
+        <button class="lightbox-prev"></button>
+        <div class="lightbox-container">
+        <img src="${imageUrl}"/>
+        <div class="lightbox-container-title">
+        ${this.title}
+        </div>
+        </div>
+        </div> `;
 
-    dom.innerHTML = `<div class="lightbox">
-      <button class="lightbox-close"></button>
-      <button class="lightbox-next"></button>
-      <button class="lightbox-prev"></button>
-      <div class="lightbox-container">
-     
-      <img src="${url}"/>
-      <div class="lightbox-container-title">
-      ${title}
-      </div>
-      </div>
-      </div> `;
-
-    dom
+    lightbox
       .querySelector(".lightbox-close")
-      .addEventListener("click", this.close.bind(this));
-    dom
+      .addEventListener("click", this.close);
+    lightbox
       .querySelector(".lightbox-next")
-      .addEventListener("click", this.next.bind(this));
-    dom
+      .addEventListener("click", this.next);
+    lightbox
       .querySelector(".lightbox-prev")
-      .addEventListener("click", this.prev.bind(this));
-    return dom;
+      .addEventListener("click", this.prev);
+
+    return lightbox;
   }
 }
