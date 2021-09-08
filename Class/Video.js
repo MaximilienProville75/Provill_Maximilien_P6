@@ -1,7 +1,7 @@
 const artistMediaGallery = document.getElementById("mediaGallery");
 
 export default class Video {
-  constructor({ id, photographerId, title, video, tags, likes, date, price }) {
+  constructor({ id, photographerId, title, video, tags, likes, date, price }, videoLightBox) {
     this.id = id;
     this.photographerId = photographerId;
     this.title = title;

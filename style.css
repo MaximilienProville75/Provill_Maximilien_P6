@@ -658,6 +658,7 @@ header #BannerPhoto {
   cursor: pointer;
   transition: .3s;
   right: 0;
+  visibility: visible;
 }
 
 .lightbox-prev{
@@ -686,8 +687,8 @@ header #BannerPhoto {
 
 }
 .lightbox-container img{
-  max-width: 100%;
-  max-height: 80vh;
+  max-width: 75%;
+max-height: 70vh;
   object-fit: cover;
   animation: lightboxIn .5s;
   border-radius: 10px;
@@ -701,6 +702,7 @@ header #BannerPhoto {
   margin-left: 50px;
   margin-right: 50px;
   flex-direction: column;
+  align-items: center;
 }
 
 .lightbox-container-title{
@@ -753,6 +755,22 @@ header #BannerPhoto {
     flex-wrap: nowrap;
     gap: 30px;
   }
+
+  .lightbox-next, .lightbox-prev {
+    border: none;
+    background: url(svgRepo/rightArrow.svg) center center / 100% 100%;
+    width: 45px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    margin-top: -14px;
+    z-index: 11;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: .3s;
+    right: 20px;
+    visibility: visible;
+}
 
   .contactMeButton{
     bottom: auto;

@@ -19,6 +19,11 @@ export default class Lightbox {
     document.body.appendChild(this.buildDOM(index));
   }
 
+  // loadTitle(index) {
+  //   const titleLightbox = document.getElementById("titleLightBox");
+  //   titleLightbox.appendChild(this.buildDOM(index));
+  // }
+
   onKeyUp(e) {
     if (e.key === "Escape" || e.code === "Escape") {
       this.close(e);
@@ -29,19 +34,40 @@ export default class Lightbox {
     }
   }
 
-  close(e, currentIndex) {
+  close(e) {
     e.preventDefault();
-    // Find a way to remove all lightboxes from body
+    const lightBoxCLose = document.getElementById("lightbox");
+    window.setTimeout(() => {
+      lightBoxCLose.remove(lightBoxCLose);
+    });
   }
 
   next(e, incrementedIndex) {
     e.preventDefault();
-    this.loadMedia(incrementedIndex);
+    const gallery = this.retrieveGallery();
+
+    while (incrementedIndex != gallery.length) {
+      this.loadMedia(incrementedIndex);
+      break;
+    }
+    if (incrementedIndex === gallery.length) {
+      this.close(e);
+    }
   }
 
   prev(e, decrementedIndex) {
     e.preventDefault();
-    this.loadMedia(decrementedIndex);
+    const gallery = this.retrieveGallery();
+
+    while (decrementedIndex != gallery.length - gallery.length) {
+      this.loadMedia(decrementedIndex);
+      break;
+    }
+    if (decrementedIndex === 0) {
+      this.close(e);
+    }
+
+    console.log(decrementedIndex);
   }
 
   resetLightBoxes() {
@@ -76,7 +102,7 @@ export default class Lightbox {
         <button class="lightbox-prev"></button>
         <div class="lightbox-container">
         <img src="${imageUrl}"/>
-        <div class="lightbox-container-title">
+        <div id="titleLightBox" class="lightbox-container-title">
         ${this.title}
         </div>
         </div>
