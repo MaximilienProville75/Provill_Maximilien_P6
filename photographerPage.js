@@ -19,6 +19,37 @@ const orderbotArrow = document.getElementById("orderbotArrow");
 const orderSelected = document.getElementById("orderSelected");
 const filterOptions = document.querySelectorAll(".option");
 
+const photographerTotalLikes = document.getElementById("totalLikes");
+const photographerPrice = document.getElementById("price");
+
+function totalLikesAndPrice(element) {
+  photographerPrice.innerText = `${element.price} € / jour`;
+  photographerTotalLikes.innerHTML = `${totalLikes} <i class="fas fa-heart"></i>`;
+}
+
+function animateAndIncrementLikes() {
+  const heartIcons = document.querySelectorAll(".heart");
+  heartIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      icon.firstElementChild.classList.toggle("empty");
+      icon.firstElementChild.classList.toggle("full");
+
+      // If the heart is activated, increment likes and total likes, else, decrement
+      const likes = icon.previousElementSibling;
+      nbOfLikes = parseInt(icon.previousElementSibling.innerText, 10);
+      nbOfLikes = icon.firstElementChild.classList.contains("full")
+        ? (nbOfLikes += 1)
+        : (nbOfLikes -= 1);
+      likes.innerText = `${nbOfLikes}`;
+
+      totalLikes = icon.firstElementChild.classList.contains("full")
+        ? (totalLikes += 1)
+        : (totalLikes -= 1);
+      photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
+    });
+  });
+}
+
 function openAndCloseDropdown() {
   if (!orderOptions.classList.contains("open")) {
     orderOptions.classList.toggle("open");
@@ -56,6 +87,7 @@ window.addEventListener("click", (e) => {
     openAndCloseDropdown();
   }
 });
+
 filterOptions.forEach((option) => {
   if (option.getAttribute("aria-selected") === "true") {
     orderSelected.innerText = option.innerText;
@@ -65,7 +97,7 @@ filterOptions.forEach((option) => {
   option.addEventListener("click", (e) => {
     e.preventDefault();
     const filterLastSelected = document.querySelector(
-      ".order-by__options > .hidden"
+      ".orderOptions > .hidden"
     );
     filterLastSelected.setAttribute("aria-selected", "false");
     filterLastSelected.classList.remove("hidden");
@@ -74,37 +106,6 @@ filterOptions.forEach((option) => {
     orderSelected.innerText = option.innerText;
   });
 });
-
-const photographerTotalLikes = document.getElementById("totalLikes");
-const photographerPrice = document.getElementById("price");
-
-function totalLikesAndPrice(element) {
-  photographerPrice.innerText = `${element.price} € / jour`;
-  photographerTotalLikes.innerHTML = `${totalLikes} <i class="fas fa-heart"></i>`;
-}
-
-function animateAndIncrementLikes() {
-  const heartIcons = document.querySelectorAll(".heart");
-  heartIcons.forEach((icon) => {
-    icon.addEventListener("click", () => {
-      icon.firstElementChild.classList.toggle("empty");
-      icon.firstElementChild.classList.toggle("full");
-
-      // If the heart is activated, increment likes and total likes, else, decrement
-      const likes = icon.previousElementSibling;
-      nbOfLikes = parseInt(icon.previousElementSibling.innerText, 10);
-      nbOfLikes = icon.firstElementChild.classList.contains("full")
-        ? (nbOfLikes += 1)
-        : (nbOfLikes -= 1);
-      likes.innerText = `${nbOfLikes}`;
-
-      totalLikes = icon.firstElementChild.classList.contains("full")
-        ? (totalLikes += 1)
-        : (totalLikes -= 1);
-      photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
-    });
-  });
-}
 
 function fetchData(url) {
   return fetch(url)
@@ -132,7 +133,6 @@ function fetchData(url) {
           newPhotographer.renderArtistBanner();
         }
       });
-
       medias.forEach((media) => {
         const firstName = newPhotographer.name.split(" ")[0];
         const id = newPhotographer.id;
@@ -145,6 +145,45 @@ function fetchData(url) {
           objectMedia.display(firstName);
         }
       });
+
+      const sortedTitle = new Lightbox();
+      sortedTitle.sortTitleArray();
+      const sortedLikes = new Lightbox();
+      sortedLikes.sortLikesArray();
+      const sortedDate = new Lightbox();
+      sortedDate.sortDateArray();
+
+      chosenOption = sortedLikes.sortLikesArray();
+
+      chosenOption.forEach((media) => {
+        const id = newPhotographer.id;
+        const { photographerId } = media;
+        const firstName = newPhotographer.name.split(" ")[0];
+        const newMedia = MediaFactory.createMedia(media, firstName);
+        if (photographerId === id) {
+          console.log(newMedia);
+          mediaGallery.insertAdjacentHTML(
+            "beforeend",
+            newMedia.display(firstName)
+          );
+        }
+      });
+
+      filterOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          if (option.attributes === "titre") {
+            chosenOption = sortedTitle.sortTitleArray();
+            setTimeout(1000, openAndCloseDropdown());
+          } else if (option.dataset.value === "date") {
+            chosenOption = sortedDate.sortDateArray();
+            setTimeout(1000, openAndCloseDropdown());
+          } else if (option.dataset.value === "popularite") {
+            chosenOption = sortedLikes.sortLikesArray();
+            setTimeout(1000, openAndCloseDropdown());
+          }
+        });
+      });
+
       animateAndIncrementLikes();
 
       totalLikesAndPrice(newPhotographer);

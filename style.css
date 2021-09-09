@@ -231,7 +231,7 @@ header #BannerPhoto {
   height: 100px;
   width: 100px;
   border-radius: 50%; 
-  box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
+  box-shadow: 4px 5px 7px 1px;
 }
 .artistBannerDescription{
   display: flex;
@@ -783,7 +783,51 @@ max-height: 70vh;
   }
 }
 
+@media screen and (min-width: 1450px) {
+  .artistBannerPortrait {
+    height: 200px;
+    width: 200px;
+}
 
+.artistBanner{
+  max-width: 1340px;
+}
+#filterOrderBy {
+  width: 60%;
+}
+
+.ArtistName {
+  font-size: 45px;
+  line-height: normal;
+}
+
+.contactMeButton {
+  top: 150px;
+  left: 40%;
+  font-size: 25px;
+  line-height: normal;
+}
+.ArtistDescription {
+  font-size: 25px;
+  line-height: normal;
+}
+.ArtistCity {
+  font-size: 20px;
+  line-height: normal;
+}
+.imageTitle, .videoTitle {
+  color: #901C1C;
+  font-size: 18px;
+}
+.mediaGallery {
+  max-width: 1340px;
+}
+
+.imageContainer, .videoContainer {
+  width: 400px;
+  height: 400px;
+}
+}
 .media {
   box-shadow: 4px 5px 7px 1px;
     width: 100%;

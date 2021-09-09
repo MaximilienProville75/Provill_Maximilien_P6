@@ -29,14 +29,17 @@ export default class Image {
       const links = gallery.map((media) => media.split("/")[2]);
       const currentIndex = links.indexOf(this.image);
       this.lightBox.loadMedia(currentIndex);
+      console.log(this.title);
     });
     imageImg.classList.add("media");
 
     const imageDescription = document.createElement("div");
     imageDescription.classList.add("imageDescription");
+    imageDescription.setAttribute("data-date", this.date);
 
     const imageTitle = document.createElement("div");
     imageTitle.innerHTML = this.title;
+    imageTitle.setAttribute("data-title", this.title);
     imageTitle.classList.add("imageTitle");
 
     const imageLikes = document.createElement("div");
@@ -44,6 +47,7 @@ export default class Image {
     imageLikes.classList.add("totalLikesBox");
     const imageLikesCount = document.createElement("span");
     imageLikesCount.innerHTML = this.likes;
+    imageLikesCount.setAttribute("data-likes", this.likes);
     imageLikesCount.classList.add("imageLikes");
     imageLikes.appendChild(imageLikesCount);
 

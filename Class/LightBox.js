@@ -10,27 +10,59 @@ export default class Lightbox {
 
   retrieveGallery() {
     const domMedia = Array.from(
-      document.querySelectorAll(".imageContainer img, .videoContainer source")
+      document.querySelectorAll(".imageContainer img")
     );
     return domMedia.map((link) => link.getAttribute("src"));
+  }
+
+  retrieveTitle() {
+    const titleMedia = Array.from(document.querySelectorAll("img.media"));
+    return titleMedia.map((link) => link.getAttribute("data-title"));
+  }
+
+  retrieveLikesMedia() {
+    const likesMedia = Array.from(document.querySelectorAll(".imageLikes"));
+    return likesMedia.map((link) => link.getAttribute("data-likes"));
+  }
+
+  retrieveDateMedia() {
+    const dateMedia = Array.from(
+      document.querySelectorAll(".imageDescription")
+    );
+    return dateMedia.map((link) => link.getAttribute("data-date"));
+  }
+
+  sortTitleArray() {
+    const titleArray = this.retrieveTitle();
+    titleArray.sort();
+    return titleArray;
+  }
+
+  sortLikesArray() {
+    const likesArray = this.retrieveLikesMedia();
+    likesArray.sort(function (a, b) {
+      return a - b;
+    });
+    return likesArray;
+  }
+
+  sortDateArray() {
+    const dateArray = this.retrieveDateMedia();
+    // dateArray.sort((a, b) => a.diff(b));
+    return dateArray;
   }
 
   loadMedia(index) {
     document.body.appendChild(this.buildDOM(index));
   }
 
-  // loadTitle(index) {
-  //   const titleLightbox = document.getElementById("titleLightBox");
-  //   titleLightbox.appendChild(this.buildDOM(index));
-  // }
-
   onKeyUp(e) {
     if (e.key === "Escape" || e.code === "Escape") {
-      this.close(e);
+      close(e);
     } else if (e.key === "ArrowLeft") {
-      this.prev(e);
+      prev(e);
     } else if (e.key === "ArrowRight") {
-      this.next(e);
+      next(e);
     }
   }
 
@@ -48,6 +80,9 @@ export default class Lightbox {
 
     while (incrementedIndex != gallery.length) {
       this.loadMedia(incrementedIndex);
+      console.log(this.sortLikesArray());
+      console.log(this.sortTitleArray());
+      console.log(this.sortDateArray());
       break;
     }
     if (incrementedIndex === gallery.length) {
@@ -59,11 +94,11 @@ export default class Lightbox {
     e.preventDefault();
     const gallery = this.retrieveGallery();
 
-    while (decrementedIndex != gallery.length - gallery.length) {
+    while (decrementedIndex != gallery.length - gallery.length - 1) {
       this.loadMedia(decrementedIndex);
       break;
     }
-    if (decrementedIndex === 0) {
+    if (decrementedIndex < 0) {
       this.close(e);
     }
 
@@ -77,13 +112,6 @@ export default class Lightbox {
     }
   }
 
-  hasNext(currentIndex) {
-    const gallery = this.retrieveGallery();
-    if (currentIndex === gallery.length) {
-      console.log("is last");
-    }
-  }
-
   buildDOM(currentIndex) {
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
@@ -93,6 +121,8 @@ export default class Lightbox {
 
     const lightbox = document.createElement("div");
     const imageUrl = `../${gallery[currentIndex]}`;
+    const titleArray = this.retrieveTitle();
+    const titlePage = titleArray[currentIndex];
 
     lightbox.classList.add("lightbox");
     lightbox.setAttribute("id", "lightbox");
@@ -103,7 +133,7 @@ export default class Lightbox {
         <div class="lightbox-container">
         <img src="${imageUrl}"/>
         <div id="titleLightBox" class="lightbox-container-title">
-        ${this.title}
+        ${titlePage}
         </div>
         </div>
         </div> `;

@@ -1,7 +1,10 @@
 const artistMediaGallery = document.getElementById("mediaGallery");
 
 export default class Video {
-  constructor({ id, photographerId, title, video, tags, likes, date, price }, videoLightBox) {
+  constructor(
+    { id, photographerId, title, video, tags, likes, date, price },
+    videoLightBox
+  ) {
     this.id = id;
     this.photographerId = photographerId;
     this.title = title;
@@ -21,12 +24,12 @@ export default class Video {
     videoVideo.controls = true;
     videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
     videoSource.setAttribute("type", "video/mp4");
-    videoSource.setAttribute("data-title", this.title);
     videoVideo.classList.add("media");
     videoVideo.appendChild(videoSource);
 
     const videoDescription = document.createElement("div");
     videoDescription.classList.add("videoDescription");
+    videoDescription.setAttribute("data-date", this.date);
 
     const videoTitle = document.createElement("div");
     videoTitle.innerHTML = this.title;
@@ -36,6 +39,7 @@ export default class Video {
     videoLikes.setAttribute("arial-label", "likes");
     videoLikes.classList.add("totalLikesBox");
     const videoLikesCount = document.createElement("span");
+    videoLikesCount.setAttribute("data-likes", this.likes);
     videoLikesCount.innerHTML = this.likes;
     videoLikesCount.classList.add("videoLikes");
     videoLikes.appendChild(videoLikesCount);
