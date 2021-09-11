@@ -4,12 +4,7 @@ import Lightbox from "./Class/LightBox.js";
 
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
-
-let activeTagsArray = [];
-let nbOfLikes = 0;
-let totalLikes = 0;
-let chosenOption = [];
-let mediaList = [];
+const mediaGallery = document.getElementById("mediaGallery");
 
 const filterOrderBy = document.getElementById("filterOrderBy");
 const orderByClick = document.getElementById("orderByClick");
@@ -21,6 +16,12 @@ const filterOptions = document.querySelectorAll(".option");
 
 const photographerTotalLikes = document.getElementById("totalLikes");
 const photographerPrice = document.getElementById("price");
+
+let activeTagsArray = [];
+let nbOfLikes = 0;
+let totalLikes = 0;
+let chosenOption = [];
+let mediaList = [];
 
 function totalLikesAndPrice(element) {
   photographerPrice.innerText = `${element.price} € / jour`;
@@ -112,9 +113,14 @@ function fetchData(url) {
     .then((res) => res.json())
     .then(function (response) {
       const { medias, photographers } = response;
+      const photographerMedia = medias.filter(
+        (m) => m.photographerId === pageId
+      );
       let newPhotographers = [];
       let newPhotographer;
       let newLightbox;
+      console.log(photographerMedia);
+
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
           photographer;
@@ -133,6 +139,7 @@ function fetchData(url) {
           newPhotographer.renderArtistBanner();
         }
       });
+
       medias.forEach((media) => {
         const firstName = newPhotographer.name.split(" ")[0];
         const id = newPhotographer.id;
@@ -146,41 +153,54 @@ function fetchData(url) {
         }
       });
 
-      const sortedTitle = new Lightbox();
-      sortedTitle.sortTitleArray();
-      const sortedLikes = new Lightbox();
-      sortedLikes.sortLikesArray();
-      const sortedDate = new Lightbox();
-      sortedDate.sortDateArray();
+      const sortedByTitle = [...photographerMedia].sort((a, b) =>
+        a.title.toUpperCase().localeCompare(b.title.toUpperCase())
+      );
+      const sortedByDate = [...photographerMedia].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      const sortedByPopularity = [...photographerMedia].sort(
+        (a, b) => b.likes - a.likes
+      );
 
-      chosenOption = sortedLikes.sortLikesArray();
-
+      chosenOption = sortedByPopularity;
       chosenOption.forEach((media) => {
-        const id = newPhotographer.id;
-        const { photographerId } = media;
         const firstName = newPhotographer.name.split(" ")[0];
         const newMedia = MediaFactory.createMedia(media, firstName);
-        if (photographerId === id) {
-          console.log(newMedia);
-          mediaGallery.insertAdjacentHTML(
-            "beforeend",
-            newMedia.display(firstName)
-          );
-        }
+        mediaGallery.insertAdjacentHTML(
+          "beforeend",
+          newMedia.display(firstName)
+        );
       });
 
+      animateAndIncrementLikes();
+
       filterOptions.forEach((option) => {
+        const firstName = newPhotographer.name.split(" ")[0];
         option.addEventListener("click", () => {
-          if (option.attributes === "titre") {
-            chosenOption = sortedTitle.sortTitleArray();
+          // Choosing the correct parameter
+          if (option.dataset.value === "titre") {
+            chosenOption = sortedByTitle;
             setTimeout(1000, openAndCloseDropdown());
           } else if (option.dataset.value === "date") {
-            chosenOption = sortedDate.sortDateArray();
+            chosenOption = sortedByDate;
             setTimeout(1000, openAndCloseDropdown());
           } else if (option.dataset.value === "popularite") {
-            chosenOption = sortedLikes.sortLikesArray();
+            chosenOption = sortedByPopularity;
             setTimeout(1000, openAndCloseDropdown());
           }
+          mediaGallery.innerHTML = "";
+          totalLikes = 0;
+          chosenOption.forEach((media) => {
+            const newMedia = MediaFactory.createMedia(media, firstName);
+            mediaGallery.insertAdjacentHTML(
+              "beforeend",
+              newMedia.display(firstName)
+            );
+            totalLikes += media.likes;
+          });
+
+          animateAndIncrementLikes();
         });
       });
 

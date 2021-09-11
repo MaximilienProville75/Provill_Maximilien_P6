@@ -29,7 +29,6 @@ export default class Image {
       const links = gallery.map((media) => media.split("/")[2]);
       const currentIndex = links.indexOf(this.image);
       this.lightBox.loadMedia(currentIndex);
-      console.log(this.title);
     });
     imageImg.classList.add("media");
 

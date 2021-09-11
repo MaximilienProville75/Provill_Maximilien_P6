@@ -20,38 +20,6 @@ export default class Lightbox {
     return titleMedia.map((link) => link.getAttribute("data-title"));
   }
 
-  retrieveLikesMedia() {
-    const likesMedia = Array.from(document.querySelectorAll(".imageLikes"));
-    return likesMedia.map((link) => link.getAttribute("data-likes"));
-  }
-
-  retrieveDateMedia() {
-    const dateMedia = Array.from(
-      document.querySelectorAll(".imageDescription")
-    );
-    return dateMedia.map((link) => link.getAttribute("data-date"));
-  }
-
-  sortTitleArray() {
-    const titleArray = this.retrieveTitle();
-    titleArray.sort();
-    return titleArray;
-  }
-
-  sortLikesArray() {
-    const likesArray = this.retrieveLikesMedia();
-    likesArray.sort(function (a, b) {
-      return a - b;
-    });
-    return likesArray;
-  }
-
-  sortDateArray() {
-    const dateArray = this.retrieveDateMedia();
-    // dateArray.sort((a, b) => a.diff(b));
-    return dateArray;
-  }
-
   loadMedia(index) {
     document.body.appendChild(this.buildDOM(index));
   }
@@ -80,9 +48,6 @@ export default class Lightbox {
 
     while (incrementedIndex != gallery.length) {
       this.loadMedia(incrementedIndex);
-      console.log(this.sortLikesArray());
-      console.log(this.sortTitleArray());
-      console.log(this.sortDateArray());
       break;
     }
     if (incrementedIndex === gallery.length) {
