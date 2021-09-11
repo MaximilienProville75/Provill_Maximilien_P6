@@ -163,22 +163,9 @@ function fetchData(url) {
         (a, b) => b.likes - a.likes
       );
 
-      chosenOption = sortedByPopularity;
-      chosenOption.forEach((media) => {
-        const firstName = newPhotographer.name.split(" ")[0];
-        const newMedia = MediaFactory.createMedia(media, firstName);
-        mediaGallery.insertAdjacentHTML(
-          "beforeend",
-          newMedia.display(firstName)
-        );
-      });
-
-      animateAndIncrementLikes();
-
       filterOptions.forEach((option) => {
         const firstName = newPhotographer.name.split(" ")[0];
         option.addEventListener("click", () => {
-          // Choosing the correct parameter
           if (option.dataset.value === "titre") {
             chosenOption = sortedByTitle;
             setTimeout(1000, openAndCloseDropdown());
