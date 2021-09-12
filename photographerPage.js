@@ -64,7 +64,7 @@ function openAndCloseDropdown() {
       fill: "forwards",
     });
 
-    const close = function close() {
+    const close = () => {
       orderOptions.classList.toggle("open");
       orderByClick.setAttribute("aria-expanded", "false");
     };
@@ -119,7 +119,6 @@ function fetchData(url) {
       let newPhotographers = [];
       let newPhotographer;
       let newLightbox;
-      console.log(photographerMedia);
 
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
@@ -168,25 +167,22 @@ function fetchData(url) {
         option.addEventListener("click", () => {
           if (option.dataset.value === "titre") {
             chosenOption = sortedByTitle;
-            setTimeout(1000, openAndCloseDropdown());
+            setTimeout(500, openAndCloseDropdown());
           } else if (option.dataset.value === "date") {
             chosenOption = sortedByDate;
-            setTimeout(1000, openAndCloseDropdown());
+            setTimeout(500, openAndCloseDropdown());
           } else if (option.dataset.value === "popularite") {
             chosenOption = sortedByPopularity;
-            setTimeout(1000, openAndCloseDropdown());
+            setTimeout(500, openAndCloseDropdown());
           }
-          mediaGallery.innerHTML = "";
+          mediaGallery.innerHTML = " ";
           totalLikes = 0;
+
           chosenOption.forEach((media) => {
             const newMedia = MediaFactory.createMedia(media, firstName);
-            mediaGallery.insertAdjacentHTML(
-              "beforeend",
-              newMedia.display(firstName)
-            );
+            newMedia.display(firstName);
             totalLikes += media.likes;
           });
-
           animateAndIncrementLikes();
         });
       });
