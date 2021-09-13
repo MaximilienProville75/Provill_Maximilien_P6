@@ -235,7 +235,6 @@ header #BannerPhoto {
   height: 100px;
   width: 100px;
   border-radius: 50%; 
-  box-shadow: 4px 5px 7px 1px;
 }
 .artistBannerDescription{
   display: flex;
@@ -641,7 +640,7 @@ header #BannerPhoto {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color:rgba(255,255,255, 0.65);;
+  background-color:white;
   z-index: 10;
   overflow: auto;
   animation: lightboxIn .5s;
@@ -666,7 +665,7 @@ header #BannerPhoto {
 
 .lightbox-prev{
   right: auto;
-  left: 0;
+  left: 40px;
   transform: rotate(180deg);
   
 }
@@ -690,12 +689,11 @@ header #BannerPhoto {
 
 }
 .lightbox-container img{
-  max-width: 75%;
-max-height: 70vh;
+  max-width: 80%;
+max-height: 80vh;
   object-fit: cover;
   animation: lightboxIn .5s;
-  border-radius: 10px;
-    box-shadow: 4px 5px 7px 1px;
+  border-radius: 5px;
 }
 
 .lightbox-container{
@@ -771,7 +769,7 @@ max-height: 70vh;
     opacity: 0.5;
     cursor: pointer;
     transition: .3s;
-    right: 20px;
+    right: 40px;
     visibility: visible;
 }
 
@@ -832,7 +830,6 @@ max-height: 70vh;
 }
 }
 .media {
-  box-shadow: 4px 5px 7px 1px;
     width: 100%;
     height: 60%;
     object-fit: cover;
