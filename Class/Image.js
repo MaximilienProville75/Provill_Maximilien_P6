@@ -24,6 +24,8 @@ export default class Image {
     imageImg.setAttribute("src", `Sample_Photos/${firstName}/${this.image}`);
     imageImg.setAttribute("alt", `${this["alt-text"]}`);
     imageImg.setAttribute("data-title", this.title);
+    imageImg.setAttribute("tabindex", "0");
+
     imageImg.addEventListener("click", () => {
       const gallery = this.lightBox.retrieveGallery();
       const links = gallery.map((media) => media.split("/")[2]);
@@ -52,8 +54,14 @@ export default class Image {
 
     const onclickImageLikes = document.createElement("a");
     onclickImageLikes.classList.add("heart");
+    onclickImageLikes.setAttribute("tabindex", "0");
     const heartClick = document.createElement("i");
     heartClick.classList.add("fas", "fa-heart", "icon", "empty", "heart");
+
+    heartClick.addEventListener("click", () => {
+      this.likes = this.likes + 1;
+      imageLikesCount.innerHTML = this.likes;
+    });
 
     imageContainer.appendChild(imageImg);
     imageDescription.appendChild(imageTitle);

@@ -25,6 +25,7 @@ export default class Video {
     videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
     videoSource.setAttribute("type", "video/mp4");
     videoVideo.classList.add("media");
+    videoVideo.setAttribute("tabindex", "0");
     videoVideo.appendChild(videoSource);
 
     const videoDescription = document.createElement("div");
@@ -46,6 +47,7 @@ export default class Video {
 
     const videoHeart = document.createElement("a");
     videoHeart.classList.add("heart");
+    videoHeart.setAttribute("tabindex", "0");
     const videoHeartClick = document.createElement("i");
     videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty");
 

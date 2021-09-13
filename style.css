@@ -28,6 +28,10 @@ ul {
   list-style: none;
 }
 
+*:focus {
+  outline: #901C1C solid 3px;
+}
+
 
 .hashTagsList {
   
@@ -595,7 +599,6 @@ header #BannerPhoto {
   margin-bottom: -65px;
 }
 
-
 .imageDescription, .videoDescription{
   display: flex;
   justify-content: space-between;
@@ -836,6 +839,8 @@ max-height: 70vh;
     border-radius: 5px;
     margin-bottom: 8px;
 }
+
+
 .footer {
   margin: 20px;
   padding: 10px;

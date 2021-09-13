@@ -5,7 +5,13 @@ export default class Lightbox {
     this.media = media;
     this.firstName = firstName;
     this.title = media?.title;
+    this.isVisible = false;
     this.url = this.media?.image ? this.media?.image : this.media?.video;
+    document.body.addEventListener("keyup", (e) => {
+      if (this.isVisible) {
+        this.onKeyUp(e);
+      }
+    });
   }
 
   retrieveGallery() {
@@ -24,18 +30,23 @@ export default class Lightbox {
     document.body.appendChild(this.buildDOM(index));
   }
 
-  onKeyUp(e) {
+  onKeyUp(e, currentIndex) {
+    const gallery = this.retrieveGallery();
+    const imageUrl = `../${gallery[currentIndex]}`;
+    const decrementedIndex = currentIndex - 1;
+    const incrementedIndex = currentIndex + 1;
     if (e.key === "Escape" || e.code === "Escape") {
-      close(e);
+      this.close(e);
     } else if (e.key === "ArrowLeft") {
-      prev(e);
+      this.prev(e, decrementedIndex);
     } else if (e.key === "ArrowRight") {
-      next(e);
+      this.next(e, incrementedIndex);
     }
   }
 
   close(e) {
     e.preventDefault();
+    this.isVisible = false;
     const lightBoxCLose = document.getElementById("lightbox");
     window.setTimeout(() => {
       lightBoxCLose.remove(lightBoxCLose);
@@ -78,6 +89,7 @@ export default class Lightbox {
   }
 
   buildDOM(currentIndex) {
+    this.isVisible = true;
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
     // check current index compared to the gallery array length
@@ -109,6 +121,7 @@ export default class Lightbox {
     lightbox
       .querySelector(".lightbox-next")
       .addEventListener("click", (e) => this.next(e, currentIndex + 1));
+
     lightbox
       .querySelector(".lightbox-prev")
       .addEventListener("click", (e) => this.prev(e, currentIndex - 1));

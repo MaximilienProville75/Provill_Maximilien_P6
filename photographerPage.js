@@ -6,7 +6,6 @@ const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
 const mediaGallery = document.getElementById("mediaGallery");
 
-const filterOrderBy = document.getElementById("filterOrderBy");
 const orderByClick = document.getElementById("orderByClick");
 const orderOptions = document.querySelector(".orderOptions");
 const filterContent = document.getElementById("filterContent");
@@ -32,20 +31,11 @@ function animateAndIncrementLikes() {
   const heartIcons = document.querySelectorAll(".heart");
   heartIcons.forEach((icon) => {
     icon.addEventListener("click", () => {
-      icon.firstElementChild.classList.toggle("empty");
-      icon.firstElementChild.classList.toggle("full");
+      icon.classList.toggle("full");
 
-      // If the heart is activated, increment likes and total likes, else, decrement
-      const likes = icon.previousElementSibling;
-      nbOfLikes = parseInt(icon.previousElementSibling.innerText, 10);
-      nbOfLikes = icon.firstElementChild.classList.contains("full")
-        ? (nbOfLikes += 1)
-        : (nbOfLikes -= 1);
-      likes.innerText = `${nbOfLikes}`;
-
-      totalLikes = icon.firstElementChild.classList.contains("full")
-        ? (totalLikes += 1)
-        : (totalLikes -= 1);
+      totalLikes = icon.classList.contains("full")
+        ? (totalLikes += 0.5)
+        : (totalLikes -= 0);
       photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
     });
   });
@@ -149,44 +139,40 @@ function fetchData(url) {
           objectMedia = MediaFactory.createMedia(media, firstName);
           totalLikes += objectMedia.likes;
           objectMedia.display(firstName);
+          mediaList.push(objectMedia);
         }
       });
 
-      const sortedByTitle = [...photographerMedia].sort((a, b) =>
-        a.title.toUpperCase().localeCompare(b.title.toUpperCase())
-      );
-      const sortedByDate = [...photographerMedia].sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-      const sortedByPopularity = [...photographerMedia].sort(
-        (a, b) => b.likes - a.likes
-      );
+      console.log(mediaList);
+      // Faire en sorte que Popularite soit apparante
 
       filterOptions.forEach((option) => {
         const firstName = newPhotographer.name.split(" ")[0];
         option.addEventListener("click", () => {
           if (option.dataset.value === "titre") {
-            chosenOption = sortedByTitle;
+            mediaList.sort((a, b) =>
+              a.title.toUpperCase().localeCompare(b.title.toUpperCase())
+            );
             setTimeout(500, openAndCloseDropdown());
           } else if (option.dataset.value === "date") {
-            chosenOption = sortedByDate;
+            mediaList.sort((a, b) => new Date(b.date) - new Date(a.date));
             setTimeout(500, openAndCloseDropdown());
           } else if (option.dataset.value === "popularite") {
-            chosenOption = sortedByPopularity;
+            mediaList.sort((a, b) => b.likes - a.likes);
             setTimeout(500, openAndCloseDropdown());
           }
           mediaGallery.innerHTML = " ";
           totalLikes = 0;
 
-          chosenOption.forEach((media) => {
-            const newMedia = MediaFactory.createMedia(media, firstName);
-            newMedia.display(firstName);
+          console.log(chosenOption);
+          mediaList.forEach((media) => {
             totalLikes += media.likes;
+            media.display(firstName);
+            totalLikesAndPrice(newPhotographer);
           });
           animateAndIncrementLikes();
         });
       });
-
       animateAndIncrementLikes();
 
       totalLikesAndPrice(newPhotographer);

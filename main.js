@@ -51,7 +51,6 @@ class Photograph {
 
     const onclickPhotographProfil = document.createElement("a");
     photographList.append(onclickPhotographProfil);
-    console.log(onclickPhotographProfil);
     onclickPhotographProfil.classList.add("photographer__link-container");
     onclickPhotographProfil.setAttribute(
       "href",
