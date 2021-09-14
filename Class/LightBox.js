@@ -30,20 +30,6 @@ export default class Lightbox {
     document.body.appendChild(this.buildDOM(index));
   }
 
-  onKeyUp(e, currentIndex) {
-    const gallery = this.retrieveGallery();
-    const imageUrl = `../${gallery[currentIndex]}`;
-    const decrementedIndex = currentIndex - 1;
-    const incrementedIndex = currentIndex + 1;
-    if (e.key === "Escape" || e.code === "Escape") {
-      this.close(e);
-    } else if (e.key === "ArrowLeft") {
-      this.prev(e, decrementedIndex);
-    } else if (e.key === "ArrowRight") {
-      this.next(e, incrementedIndex);
-    }
-  }
-
   close(e) {
     e.preventDefault();
     this.isVisible = false;
@@ -55,6 +41,7 @@ export default class Lightbox {
 
   next(e, incrementedIndex) {
     e.preventDefault();
+    this.isVisible = true;
     const gallery = this.retrieveGallery();
 
     while (incrementedIndex != gallery.length) {
@@ -69,7 +56,7 @@ export default class Lightbox {
   prev(e, decrementedIndex) {
     e.preventDefault();
     const gallery = this.retrieveGallery();
-
+    this.isVisible = true;
     while (decrementedIndex != gallery.length - gallery.length - 1) {
       this.loadMedia(decrementedIndex);
       break;
@@ -77,8 +64,18 @@ export default class Lightbox {
     if (decrementedIndex < 0) {
       this.close(e);
     }
+  }
 
-    console.log(decrementedIndex);
+  onKeyUp(e) {
+    if (e.key === "Escape" || e.code === "Escape") {
+      this.close(e);
+    } else if (e.key === "ArrowLeft") {
+      this.prev(e, this.decrementedIndex);
+      this.loadMedia(this.decrementedIndex);
+    } else if (e.key === "ArrowRight") {
+      this.next(e, this.incrementedIndex);
+      this.loadMedia(this.incrementedIndex);
+    }
   }
 
   resetLightBoxes() {
@@ -92,9 +89,6 @@ export default class Lightbox {
     this.isVisible = true;
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
-    // check current index compared to the gallery array length
-    // last element ? hide next button
-    // first element ? hide prev button
 
     const lightbox = document.createElement("div");
     const imageUrl = `../${gallery[currentIndex]}`;

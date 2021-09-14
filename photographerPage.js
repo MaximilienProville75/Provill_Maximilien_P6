@@ -98,6 +98,15 @@ filterOptions.forEach((option) => {
   });
 });
 
+document.body.addEventListener("mousedown", () => {
+  document.body.classList.add("using-mouse");
+});
+document.body.addEventListener("keydown", (event) => {
+  if (event.keyCode === 9) {
+    document.body.classList.remove("using-mouse");
+  }
+});
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -142,9 +151,6 @@ function fetchData(url) {
           mediaList.push(objectMedia);
         }
       });
-
-      console.log(mediaList);
-      // Faire en sorte que Popularite soit apparante
 
       filterOptions.forEach((option) => {
         const firstName = newPhotographer.name.split(" ")[0];

@@ -28,10 +28,15 @@ ul {
   list-style: none;
 }
 
-*:focus {
-  outline: #901C1C solid 3px;
+
+:focus {
+  outline: #901C1C auto 2px;
 }
 
+/* When mouse is detected, ALL focused elements have outline removed. */
+body.using-mouse :focus {
+  outline: none;
+}
 
 .hashTagsList {
   
@@ -561,6 +566,10 @@ header #BannerPhoto {
   justify-content: space-evenly;
   height: 500px;
   padding-bottom: 40px;
+}
+
+.heart:focus{
+  outline: none;
 }
 
 #confirmation .btnClose {
