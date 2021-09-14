@@ -26,6 +26,13 @@ export default class Lightbox {
     return titleMedia.map((link) => link.getAttribute("data-title"));
   }
 
+  retrieveIndex() {
+    const indexBla = Array.from(
+      document.querySelectorAll(".lightbox-container img")
+    );
+    return indexBla.map((link) => link.getAttribute("data-index"));
+  }
+
   loadMedia(index) {
     document.body.appendChild(this.buildDOM(index));
   }
@@ -41,7 +48,7 @@ export default class Lightbox {
 
   next(e, incrementedIndex) {
     e.preventDefault();
-    this.isVisible = true;
+    this.isVisible = false;
     const gallery = this.retrieveGallery();
 
     while (incrementedIndex != gallery.length) {
@@ -56,7 +63,8 @@ export default class Lightbox {
   prev(e, decrementedIndex) {
     e.preventDefault();
     const gallery = this.retrieveGallery();
-    this.isVisible = true;
+    this.isVisible = false;
+
     while (decrementedIndex != gallery.length - gallery.length - 1) {
       this.loadMedia(decrementedIndex);
       break;
@@ -67,14 +75,15 @@ export default class Lightbox {
   }
 
   onKeyUp(e) {
+    let index = this.retrieveIndex();
+    let indexNum = parseInt(index);
+
     if (e.key === "Escape" || e.code === "Escape") {
       this.close(e);
     } else if (e.key === "ArrowLeft") {
-      this.prev(e, this.decrementedIndex);
-      this.loadMedia(this.decrementedIndex);
+      this.prev(e, indexNum - 1);
     } else if (e.key === "ArrowRight") {
-      this.next(e, this.incrementedIndex);
-      this.loadMedia(this.incrementedIndex);
+      this.next(e, indexNum + 1);
     }
   }
 
@@ -102,7 +111,7 @@ export default class Lightbox {
         <button class="lightbox-next"></button>
         <button class="lightbox-prev"></button>
         <div class="lightbox-container">
-        <img src="${imageUrl}"/>
+        <img src="${imageUrl}" data-index=${currentIndex}  / >
         <div id="titleLightBox" class="lightbox-container-title">
         ${titlePage}
         </div>
