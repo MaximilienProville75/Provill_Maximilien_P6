@@ -103,11 +103,8 @@ export default class Lightbox {
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
     let htmlBalise;
-
     const lightbox = document.createElement("div");
     const imageUrl = `../${gallery[currentIndex]}`;
-    console.log(imageUrl);
-    console.log(imageUrl.split(".")[3]);
 
     if (imageUrl.split(".")[3].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
       htmlBalise = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
@@ -120,7 +117,6 @@ export default class Lightbox {
 
     const titleArray = this.retrieveTitle();
     const titlePage = titleArray[currentIndex];
-    console.log(titlePage);
 
     lightbox.classList.add("lightbox");
     lightbox.setAttribute("id", "lightbox");
