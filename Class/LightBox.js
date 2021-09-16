@@ -16,19 +16,23 @@ export default class Lightbox {
 
   retrieveGallery() {
     const domMedia = Array.from(
-      document.querySelectorAll(".imageContainer img")
+      document.querySelectorAll(".imageContainer img, .videoContainer source")
     );
     return domMedia.map((link) => link.getAttribute("src"));
   }
 
   retrieveTitle() {
-    const titleMedia = Array.from(document.querySelectorAll("img.media"));
+    const titleMedia = Array.from(
+      document.querySelectorAll("img.media, .videoContainer video")
+    );
     return titleMedia.map((link) => link.getAttribute("data-title"));
   }
 
   retrieveIndex() {
     const indexBla = Array.from(
-      document.querySelectorAll(".lightbox-container img")
+      document.querySelectorAll(
+        ".lightbox-container img, .lightbox-container source"
+      )
     );
     return indexBla.map((link) => link.getAttribute("data-index"));
   }
@@ -98,11 +102,25 @@ export default class Lightbox {
     this.isVisible = true;
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
+    let htmlBalise;
 
     const lightbox = document.createElement("div");
     const imageUrl = `../${gallery[currentIndex]}`;
+    console.log(imageUrl);
+    console.log(imageUrl.split(".")[3]);
+
+    if (imageUrl.split(".")[3].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
+      htmlBalise = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
+    }
+    if (imageUrl.split(".")[3].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
+      htmlBalise = `<video controls="" class="lightBoxVideo">
+      <source src="${imageUrl}" type="video/mp4" data-index=${currentIndex}>
+      </video>`;
+    }
+
     const titleArray = this.retrieveTitle();
     const titlePage = titleArray[currentIndex];
+    console.log(titlePage);
 
     lightbox.classList.add("lightbox");
     lightbox.setAttribute("id", "lightbox");
@@ -111,7 +129,7 @@ export default class Lightbox {
         <button class="lightbox-next"></button>
         <button class="lightbox-prev"></button>
         <div class="lightbox-container">
-        <img src="${imageUrl}" data-index=${currentIndex}  / >
+        ${htmlBalise}
         <div id="titleLightBox" class="lightbox-container-title">
         ${titlePage}
         </div>

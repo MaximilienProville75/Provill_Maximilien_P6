@@ -3,7 +3,7 @@ const artistMediaGallery = document.getElementById("mediaGallery");
 export default class Video {
   constructor(
     { id, photographerId, title, video, tags, likes, date, price },
-    videoLightBox
+    lightBox
   ) {
     this.id = id;
     this.photographerId = photographerId;
@@ -13,6 +13,7 @@ export default class Video {
     this.likes = likes;
     this.date = date;
     this.price = price;
+    this.lightBox = lightBox;
   }
 
   display(firstName) {
@@ -26,7 +27,21 @@ export default class Video {
     videoSource.setAttribute("type", "video/mp4");
     videoVideo.classList.add("media");
     videoVideo.setAttribute("tabindex", "0");
+    videoVideo.setAttribute("data-title", this.title);
     videoVideo.appendChild(videoSource);
+
+    videoVideo.addEventListener("click", () => {
+      const gallery = this.lightBox.retrieveGallery();
+      const links = gallery.map((media) => media.split("/")[2]);
+      const currentIndex = links.indexOf(this.image);
+      this.lightBox.loadMedia(currentIndex);
+      videoVideo.addEventListener("click", () => {
+        const gallery = this.lightBox.retrieveGallery();
+        const links = gallery.map((media) => media.split("/")[2]);
+        const currentIndex = links.indexOf(this.video);
+        this.lightBox.loadMedia(currentIndex);
+      });
+    });
 
     const videoDescription = document.createElement("div");
     videoDescription.classList.add("videoDescription");
@@ -34,6 +49,7 @@ export default class Video {
 
     const videoTitle = document.createElement("div");
     videoTitle.innerHTML = this.title;
+    videoTitle.setAttribute("data-title", this.title);
     videoTitle.classList.add("videoTitle");
 
     const videoLikes = document.createElement("div");
@@ -49,7 +65,12 @@ export default class Video {
     videoHeart.classList.add("heart");
     videoHeart.setAttribute("tabindex", "0");
     const videoHeartClick = document.createElement("i");
-    videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty");
+    videoHeartClick.classList.add("fas", "fa-heart", "icon", "empty", "heart");
+
+    videoHeartClick.addEventListener("click", () => {
+      this.likes = this.likes + 1;
+      videoLikesCount.innerHTML = this.likes;
+    });
 
     videoContainer.appendChild(videoVideo);
     videoDescription.appendChild(videoTitle);

@@ -555,6 +555,11 @@ header #BannerPhoto {
   visibility: hidden;
 }
 
+.lightBoxVideo{
+  height: 60vh;
+  width: 85%;
+}
+
 #confirmation{
   width: 100%;
   margin: auto;

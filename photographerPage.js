@@ -34,7 +34,7 @@ function animateAndIncrementLikes() {
       icon.classList.toggle("full");
 
       totalLikes = icon.classList.contains("full")
-        ? (totalLikes += 0.5)
+        ? (totalLikes += 1)
         : (totalLikes -= 0);
       photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
     });
