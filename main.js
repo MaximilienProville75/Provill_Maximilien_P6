@@ -14,7 +14,7 @@ class Photograph {
     this.tags = tags;
     this.tagline = tagline;
     this.price = price;
-    this.portrait = `/Sample_Photos/Portraits/${portrait}`;
+    this.portrait = `./Sample_Photos/Portraits/${portrait}`;
   }
 
   printPhotographer() {

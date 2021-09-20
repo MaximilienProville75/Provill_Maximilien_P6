@@ -104,12 +104,12 @@ export default class Lightbox {
     const gallery = this.retrieveGallery();
     let htmlBalise;
     const lightbox = document.createElement("div");
-    const imageUrl = `../${gallery[currentIndex]}`;
+    const imageUrl = `./${gallery[currentIndex]}`;
 
-    if (imageUrl.split(".")[3].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
+    if (imageUrl.split(".")[2].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
       htmlBalise = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
     }
-    if (imageUrl.split(".")[3].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
+    if (imageUrl.split(".")[2].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
       htmlBalise = `<video controls="" class="lightBoxVideo">
       <source src="${imageUrl}" type="video/mp4" data-index=${currentIndex}>
       </video>`;
