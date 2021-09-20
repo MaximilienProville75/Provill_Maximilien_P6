@@ -96,6 +96,8 @@ body.using-mouse :focus {
   flex-wrap: wrap;
   column-gap: 25px;
   row-gap: 20px;
+  row-gap: 45px;
+  margin-top: 45px;
   max-width: 1000px;
 }
 
@@ -112,6 +114,7 @@ body.using-mouse :focus {
 }
 }
 .Artistes {
+  height: 450px;
   display: flex;
   flex-direction: row;
   margin: auto;

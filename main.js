@@ -1,8 +1,5 @@
-const pageURL = new URL(window.location).href;
-const params = new URL(window.location).searchParams;
-
 const PhotographerList = document.getElementById("PhotographerList");
-const crossPageTag = params.get("tag");
+
 let activeTagsArray = [];
 
 class Photograph {

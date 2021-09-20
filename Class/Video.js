@@ -25,6 +25,7 @@ export default class Video {
     videoVideo.controls = true;
     videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
     videoSource.setAttribute("type", "video/mp4");
+    // videoSource.removeAttribute("controls");
     videoVideo.classList.add("media");
     videoVideo.setAttribute("tabindex", "0");
     videoVideo.setAttribute("data-title", this.title);
