@@ -1,5 +1,3 @@
-import MediaFactory from "./MediaFactory.js";
-
 export default class Lightbox {
   constructor(media, firstName) {
     this.media = media;
@@ -102,15 +100,15 @@ export default class Lightbox {
     this.isVisible = true;
     this.resetLightBoxes();
     const gallery = this.retrieveGallery();
-    let htmlBalise;
+    let htmlBeacon;
     const lightbox = document.createElement("div");
-    const imageUrl = `./${gallery[currentIndex]}`;
+    const imageUrl = `/${gallery[currentIndex]}`;
 
-    if (imageUrl.split(".")[2].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
-      htmlBalise = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
+    if (imageUrl.split(".")[1].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
+      htmlBeacon = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
     }
-    if (imageUrl.split(".")[2].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
-      htmlBalise = `<video controls="" class="lightBoxVideo">
+    if (imageUrl.split(".")[1].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
+      htmlBeacon = `<video  autoplay class="lightBoxVideo">
       <source src="${imageUrl}" type="video/mp4" data-index=${currentIndex}>
       </video>`;
     }
@@ -125,7 +123,7 @@ export default class Lightbox {
         <button class="lightbox-next"></button>
         <button class="lightbox-prev"></button>
         <div class="lightbox-container">
-        ${htmlBalise}
+        ${htmlBeacon}
         <div id="titleLightBox" class="lightbox-container-title">
         ${titlePage}
         </div>

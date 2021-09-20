@@ -1,6 +1,5 @@
 import Photograph from "./Class/Photograph.js";
 import MediaFactory from "./Class/MediaFactory.js";
-import Lightbox from "./Class/LightBox.js";
 
 const params = new URL(window.location).searchParams;
 const pageId = parseInt(params.get("id"), 10);
@@ -15,9 +14,8 @@ const filterOptions = document.querySelectorAll(".option");
 
 const photographerTotalLikes = document.getElementById("totalLikes");
 const photographerPrice = document.getElementById("price");
+const formheader = document.getElementById("formHeader");
 
-let activeTagsArray = [];
-let nbOfLikes = 0;
 let totalLikes = 0;
 let chosenOption = [];
 let mediaList = [];
@@ -112,12 +110,7 @@ function fetchData(url) {
     .then((res) => res.json())
     .then(function (response) {
       const { medias, photographers } = response;
-      const photographerMedia = medias.filter(
-        (m) => m.photographerId === pageId
-      );
-      let newPhotographers = [];
       let newPhotographer;
-      let newLightbox;
 
       photographers.forEach((photographer) => {
         const { name, id, city, country, tags, tagline, price, portrait } =
@@ -135,6 +128,8 @@ function fetchData(url) {
             portrait
           );
           newPhotographer.renderArtistBanner();
+          formheader.innerText = `Contactez-moi 
+          ${newPhotographer.name}`;
         }
       });
 

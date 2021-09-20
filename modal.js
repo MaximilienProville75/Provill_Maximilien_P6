@@ -17,8 +17,6 @@ const FamilyName = document.getElementById("FamilyName");
 const email = document.getElementById("email");
 const CommentInput = document.getElementById("Comment");
 const confirmation = document.getElementById("confirmation");
-const formheader = document.getElementsByClassName("formHeader");
-
 const confirmationCloseBtn = document.getElementsByClassName("btnClose");
 
 form.addEventListener("submit", (e) => {

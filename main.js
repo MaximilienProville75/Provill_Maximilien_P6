@@ -1,6 +1,31 @@
 const PhotographerList = document.getElementById("PhotographerList");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const rootElement = document.documentElement;
+let scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
 
 let activeTagsArray = [];
+
+function scrollToTop() {
+  rootElement.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
+scrollToTopBtn.addEventListener("click", scrollToTop);
+
+function handleScroll() {
+  // Do something on scroll
+  let scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+  if (rootElement.scrollTop / scrollTotal > 0.05) {
+    // Show button
+    scrollToTopBtn.classList.add("showBtn");
+  } else {
+    // Hide button
+    scrollToTopBtn.classList.remove("showBtn");
+  }
+}
+
+document.addEventListener("scroll", handleScroll);
 
 class Photograph {
   constructor(name, id, city, country, tags, tagline, price, portrait) {
@@ -169,7 +194,6 @@ document.body.addEventListener("mousedown", function () {
   document.body.classList.add("using-mouse");
 });
 
-// Re-enable focus styling when Tab is pressed
 document.body.addEventListener("keydown", function (event) {
   if (event.keyCode === 9) {
     document.body.classList.remove("using-mouse");

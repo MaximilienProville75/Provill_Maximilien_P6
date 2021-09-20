@@ -22,10 +22,10 @@ export default class Video {
 
     const videoVideo = document.createElement("video");
     const videoSource = document.createElement("source");
-    videoVideo.controls = true;
+    // videoVideo.autoplay = true;
     videoSource.setAttribute("src", `Sample_Photos/${firstName}/${this.video}`);
     videoSource.setAttribute("type", "video/mp4");
-    // videoSource.removeAttribute("controls");
+    // videoVideo.setAttribute("controls", false);
     videoVideo.classList.add("media");
     videoVideo.setAttribute("tabindex", "0");
     videoVideo.setAttribute("data-title", this.title);

@@ -21,6 +21,37 @@
   background: rgba(255, 255, 255, .3);
 }
 
+#scrollToTopBtn {
+  background-color: #DB8876;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 28px;
+  width: 200px;
+  color: black;
+  font-size: 21px;
+  height: auto;
+  padding: 5px;
+  position: fixed;
+  top: 36px;
+  margin: auto;
+  left: -3.33%;
+right: -3.33%;
+opacity: 0;
+transform: translateY(30px);
+
+/* and a transition */
+transition: all .5s ease
+}
+
+
+.showBtn {
+  opacity: 1!important;
+  transform: translateY(0)
+}
+
 header {
   margin-bottom: 30px;
 }
@@ -96,9 +127,9 @@ body.using-mouse :focus {
   flex-wrap: wrap;
   column-gap: 25px;
   row-gap: 20px;
-  row-gap: 45px;
+  row-gap: 65px;
   margin-top: 45px;
-  max-width: 1000px;
+  max-width: 1100px;
 }
 
 
@@ -473,8 +504,10 @@ header #BannerPhoto {
   
 }
 
-.formHeader h2{
-  margin: 0;
+#formHeader{
+  font-size: 36px;
+  color: #000000;
+  margin-bottom: 20px;
 }
 
 .form{
@@ -545,7 +578,7 @@ header #BannerPhoto {
   border: 2px solid #901C1C;
   display: block;
   padding: 10px;
-  width: 100%;
+  width: 40%;
   font-size:  16px;
   border-radius: 4px;
 }
@@ -664,7 +697,12 @@ header #BannerPhoto {
   transition: opacity 0.3s;
 }
 
+.lightbox-next{
+  right: 40px !important;
+}
+
 .lightbox-next, .lightbox-prev{
+  
   border: none;
   background: url(svgRepo/rightArrow.svg) center center / 100% 100%;
   width: 20px;
@@ -806,6 +844,13 @@ max-height: 80vh;
     height: 200px;
     width: 200px;
 }
+
+#formHeader{
+  font-size: 64px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
 
 .artistBanner{
   max-width: 1340px;
