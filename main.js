@@ -189,8 +189,6 @@ function tagId() {
   );
   const sections = document.querySelectorAll("section");
 
-  console.log(allSimilarTags, sections);
-
   allSimilarTags.forEach((tags) => {
     tags.classList.add("activeTtag");
   });
