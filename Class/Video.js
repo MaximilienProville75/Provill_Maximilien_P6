@@ -29,6 +29,7 @@ export default class Video {
     videoVideo.classList.add("media");
     videoVideo.setAttribute("tabindex", "0");
     videoVideo.setAttribute("data-title", this.title);
+    videoVideo.autoplay = true;
     videoVideo.appendChild(videoSource);
 
     videoVideo.addEventListener("click", () => {
@@ -36,12 +37,6 @@ export default class Video {
       const links = gallery.map((media) => media.split("/")[2]);
       const currentIndex = links.indexOf(this.image);
       this.lightBox.loadMedia(currentIndex);
-      videoVideo.addEventListener("click", () => {
-        const gallery = this.lightBox.retrieveGallery();
-        const links = gallery.map((media) => media.split("/")[2]);
-        const currentIndex = links.indexOf(this.video);
-        this.lightBox.loadMedia(currentIndex);
-      });
     });
 
     const videoDescription = document.createElement("div");

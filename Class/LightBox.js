@@ -103,11 +103,13 @@ export default class Lightbox {
     let htmlBeacon;
     const lightbox = document.createElement("div");
     const imageUrl = `/${gallery[currentIndex]}`;
+    console.log(imageUrl);
+    console.log(gallery);
+    // const videoUrl = ``;
 
     if (imageUrl.split(".")[1].match("\\jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF$")) {
       htmlBeacon = `<img src="${imageUrl}" data-index=${currentIndex}  / >`;
-    }
-    if (imageUrl.split(".")[1].match("\\mp4|mp3|mov|avi|MKV|MPEG-2$")) {
+    } else {
       htmlBeacon = `<video  autoplay class="lightBoxVideo">
       <source src="${imageUrl}" type="video/mp4" data-index=${currentIndex}>
       </video>`;

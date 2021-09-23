@@ -11,7 +11,6 @@ export default class Photograph {
     this.price = price;
     this.portrait = `./Sample_Photos/Portraits/${portrait}`;
   }
-
   computePhotographerVariables() {
     return {
       name: this.name,
@@ -27,7 +26,7 @@ export default class Photograph {
 
   renderArtistBanner() {
     const photographer = this.computePhotographerVariables();
-    const { name, id, city, country, tags, tagline, portrait } = photographer;
+    const { name, city, country, tags, tagline, portrait } = photographer;
 
     const artistBanner = document.createElement("section");
     artistBanner.classList.add("artistBanner");
@@ -75,7 +74,8 @@ export default class Photograph {
       );
       photographerTagLink.dataset.tagName = tag;
       photographerTagLink.classList.add("tag");
-      photographerTagLink.setAttribute("href", "#");
+      photographerTagLink.setAttribute("href", `index.html#${tag}`);
+      photographerTagLink.setAttribute("method", "GET");
       photographerTagLink.innerText = `#${tag}`;
     });
 

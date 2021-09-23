@@ -1,7 +1,6 @@
 const PhotographerList = document.getElementById("PhotographerList");
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const rootElement = document.documentElement;
-let scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
 
 let activeTagsArray = [];
 
@@ -14,13 +13,10 @@ function scrollToTop() {
 scrollToTopBtn.addEventListener("click", scrollToTop);
 
 function handleScroll() {
-  // Do something on scroll
   let scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
   if (rootElement.scrollTop / scrollTotal > 0.05) {
-    // Show button
     scrollToTopBtn.classList.add("showBtn");
   } else {
-    // Hide button
     scrollToTopBtn.classList.remove("showBtn");
   }
 }
@@ -122,7 +118,7 @@ class Photograph {
     tags.forEach((tag) => {
       if (!document.querySelector(`.tag[data-tag-name="${tag}"]`)) {
         const navTag = navTaglist.appendChild(document.createElement("li"));
-        const navTagSpan = navTag.appendChild(document.createElement("span"));
+
         const navTagLink = navTag.appendChild(document.createElement("a"));
         navTagLink.setAttribute("href", "#");
         navTagLink.innerText = `#${tag}`;
@@ -131,9 +127,6 @@ class Photograph {
       }
       const photographerTag = photographerTagList.appendChild(
         document.createElement("li")
-      );
-      const photographerSRtag = photographerTag.appendChild(
-        document.createElement("span")
       );
       const photographerTagLink = photographerTag.appendChild(
         document.createElement("a")
@@ -145,6 +138,7 @@ class Photograph {
     });
   }
 }
+
 function filterPhotographers(element) {
   element.addEventListener("click", () => {
     const allSimilarTags = document.querySelectorAll(

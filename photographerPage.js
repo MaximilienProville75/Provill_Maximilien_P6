@@ -17,8 +17,21 @@ const photographerPrice = document.getElementById("price");
 const formheader = document.getElementById("formHeader");
 
 let totalLikes = 0;
-let chosenOption = [];
 let mediaList = [];
+
+function enterPressDown() {
+  const containerMedia = Array.from(
+    document.querySelectorAll(".imageContainer img, .videoContainer source, i")
+  );
+  console.log(containerMedia);
+  containerMedia.forEach((media) => {
+    media.addEventListener("keypress", function onEvent(event) {
+      if (event.key === "Enter") {
+        media.click();
+      }
+    });
+  });
+}
 
 function totalLikesAndPrice(element) {
   photographerPrice.innerText = `${element.price} € / jour`;
@@ -32,7 +45,7 @@ function animateAndIncrementLikes() {
       icon.classList.toggle("full");
 
       totalLikes = icon.classList.contains("full")
-        ? (totalLikes += 1)
+        ? (totalLikes += 0.5)
         : (totalLikes -= 0);
       photographerTotalLikes.innerHTML = `${totalLikes} <i class='fas fa-heart'></i>`;
     });
@@ -105,6 +118,22 @@ document.body.addEventListener("keydown", (event) => {
   }
 });
 
+// let activeTagsArray = [];
+
+// function returnHomePageTag(element) {
+//   element.addEventListener("click", () => {
+//     const allSimilarTags = document.querySelectorAll(
+//       `.tag[data-tag-name="${element.dataset.tagName}"]`
+//     );
+
+//     if (element.classList.contains("activeTtag")) {
+//       // Si tag cliquer ==> garder en memoire tag ,
+//       // retourner sur age principale avec meme tag
+//       // deja generer pour le tri
+//     }
+//   });
+// }
+
 function fetchData(url) {
   return fetch(url)
     .then((res) => res.json())
@@ -164,8 +193,6 @@ function fetchData(url) {
           }
           mediaGallery.innerHTML = " ";
           totalLikes = 0;
-
-          console.log(chosenOption);
           mediaList.forEach((media) => {
             totalLikes += media.likes;
             media.display(firstName);
@@ -175,7 +202,7 @@ function fetchData(url) {
         });
       });
       animateAndIncrementLikes();
-
+      enterPressDown();
       totalLikesAndPrice(newPhotographer);
       return response;
     });
