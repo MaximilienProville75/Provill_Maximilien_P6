@@ -74,14 +74,13 @@ export default class Photograph {
       );
       photographerTagLink.dataset.tagName = tag;
       photographerTagLink.classList.add("tag");
-      photographerTagLink.setAttribute("href", `index.html#${tag}`);
+      photographerTagLink.setAttribute("href", `index.html?#${tag}`);
       photographerTagLink.setAttribute("method", "GET");
       photographerTagLink.innerText = `#${tag}`;
     });
 
     artistBanner.appendChild(artistPhot);
     artistBannerDescription.appendChild(artistName);
-    // artistDescription.appendChild(contactMeBtn);
     artistBannerDescription.appendChild(artistDescription);
     artistBannerDescription.appendChild(artistCityCountry);
     artistBannerDescription.appendChild(photographerTagList);

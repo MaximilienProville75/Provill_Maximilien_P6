@@ -35,10 +35,6 @@ class Photograph {
     this.portrait = `./Sample_Photos/Portraits/${portrait}`;
   }
 
-  printPhotographer() {
-    console.log(`Photographer name ${this.portrait}`);
-  }
-
   computePhotographerVariables() {
     return {
       name: this.name,
@@ -183,6 +179,33 @@ function filterPhotographers(element) {
     });
   });
 }
+function tagId() {
+  let full_url = document.URL;
+  let url_array = full_url.split("#");
+  let tagId = url_array[url_array.length - 1];
+
+  const allSimilarTags = document.querySelectorAll(
+    `.tag[data-tag-name="${tagId}"]`
+  );
+  const sections = document.querySelectorAll("section");
+
+  console.log(allSimilarTags, sections);
+
+  allSimilarTags.forEach((tags) => {
+    tags.classList.add("activeTtag");
+  });
+
+  sections.forEach((section) => {
+    section.classList.add("hidden");
+  });
+
+  const elementsToDisplay = document.querySelectorAll(
+    `.Artistes[data-tags*="${tagId}"]`
+  );
+  elementsToDisplay.forEach((elementToDisplay) => {
+    elementToDisplay.classList.remove("hidden");
+  });
+}
 
 document.body.addEventListener("mousedown", function () {
   document.body.classList.add("using-mouse");
@@ -224,7 +247,20 @@ function fetchData(url) {
       const tags = document.querySelectorAll(".tag");
       tags.forEach((tag) => {
         filterPhotographers(tag);
+        tagId(tag);
       });
+
+      const baseUrl = document.URL.split("/");
+      const baseEnding = baseUrl[baseUrl.length - 1];
+      console.log(baseEnding);
+      if (baseEnding === "index.html") {
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section) => {
+          section.classList.remove("hidden");
+        });
+      } else {
+        tagId();
+      }
 
       return response;
     });

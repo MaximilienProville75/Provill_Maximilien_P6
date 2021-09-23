@@ -23,7 +23,6 @@ function enterPressDown() {
   const containerMedia = Array.from(
     document.querySelectorAll(".imageContainer img, .videoContainer source, i")
   );
-  console.log(containerMedia);
   containerMedia.forEach((media) => {
     media.addEventListener("keypress", function onEvent(event) {
       if (event.key === "Enter") {
@@ -117,22 +116,6 @@ document.body.addEventListener("keydown", (event) => {
     document.body.classList.remove("using-mouse");
   }
 });
-
-// let activeTagsArray = [];
-
-// function returnHomePageTag(element) {
-//   element.addEventListener("click", () => {
-//     const allSimilarTags = document.querySelectorAll(
-//       `.tag[data-tag-name="${element.dataset.tagName}"]`
-//     );
-
-//     if (element.classList.contains("activeTtag")) {
-//       // Si tag cliquer ==> garder en memoire tag ,
-//       // retourner sur age principale avec meme tag
-//       // deja generer pour le tri
-//     }
-//   });
-// }
 
 function fetchData(url) {
   return fetch(url)
