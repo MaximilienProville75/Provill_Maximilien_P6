@@ -179,6 +179,7 @@ function filterPhotographers(element) {
     });
   });
 }
+
 function tagId() {
   let full_url = document.URL;
   let url_array = full_url.split("#");
@@ -203,6 +204,12 @@ function tagId() {
   elementsToDisplay.forEach((elementToDisplay) => {
     elementToDisplay.classList.remove("hidden");
   });
+
+  if (tagId === null) {
+    sections.forEach((section) => {
+      section.classList.remove("hidden");
+    });
+  }
 }
 
 document.body.addEventListener("mousedown", function () {
